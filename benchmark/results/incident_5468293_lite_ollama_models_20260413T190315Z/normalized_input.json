@@ -1,0 +1,630 @@
+{
+  "skill_version": "incident_senior_soc_v1",
+  "incident_id": "5468293",
+  "key_metadata_candidates": {
+    "hostname": {
+      "value": "win-edr-2",
+      "evidence": [
+        {
+          "evidence_id": "e21",
+          "tool": "get_incident_details",
+          "path": "incident.host",
+          "value": "win-edr-2",
+          "normalized_value": null
+        }
+      ]
+    },
+    "user": {
+      "value": "WIN-EDR-2\\Alice",
+      "evidence": [
+        {
+          "evidence_id": "e5",
+          "tool": "get_incident_details",
+          "path": "incident.logged_user",
+          "value": "WIN-EDR-2\\Alice",
+          "normalized_value": null
+        }
+      ]
+    },
+    "process_name": {
+      "value": "sample_7.bin",
+      "evidence": [
+        {
+          "evidence_id": "e2",
+          "tool": "get_incident_details",
+          "path": "incident.process",
+          "value": "sample_7.bin",
+          "normalized_value": null
+        }
+      ]
+    },
+    "process_path": {
+      "value": "C:\\Users\\Alice\\Downloads\\sample_7.bin",
+      "evidence": [
+        {
+          "evidence_id": "e3",
+          "tool": "get_incident_details",
+          "path": "incident.process_path",
+          "value": "C:\\Users\\Alice\\Downloads\\sample_7.bin",
+          "normalized_value": null
+        }
+      ]
+    },
+    "hashes": {
+      "md5": "509B46BD594E2B5CB48AAF07784D3A00",
+      "sha1": null,
+      "sha256": "7472FDE428C121D359C24053910C77BC35A1581CAFCAE279088B608A11070610",
+      "evidence": [
+        {
+          "evidence_id": "e45",
+          "tool": "get_incident_details",
+          "path": "raw_data_items[0].StackInfos[0].CommonAdditionalInfo[3].FileHashMD5",
+          "value": "509B46BD594E2B5CB48AAF07784D3A00",
+          "normalized_value": null
+        },
+        {
+          "evidence_id": "e46",
+          "tool": "get_incident_details",
+          "path": "raw_data_items[0].StackInfos[0].CommonAdditionalInfo[3].FileHashSHA2",
+          "value": "7472FDE428C121D359C24053910C77BC35A1581CAFCAE279088B608A11070610",
+          "normalized_value": null
+        }
+      ]
+    },
+    "severity": {
+      "value": "Critical",
+      "evidence": [
+        {
+          "evidence_id": "e7",
+          "tool": "get_incident_details",
+          "path": "incident.severity",
+          "value": "Critical",
+          "normalized_value": null
+        }
+      ]
+    },
+    "classification": {
+      "value": "Malicious",
+      "evidence": [
+        {
+          "evidence_id": "e8",
+          "tool": "get_incident_details",
+          "path": "incident.classification",
+          "value": "Malicious",
+          "normalized_value": null
+        }
+      ]
+    },
+    "first_seen": {
+      "value": "2026-04-12 21:56:14",
+      "evidence": [
+        {
+          "evidence_id": "e11",
+          "tool": "get_incident_details",
+          "path": "incident.first_seen",
+          "value": "2026-04-12 21:56:14",
+          "normalized_value": null
+        }
+      ]
+    },
+    "last_seen": {
+      "value": "2026-04-12 21:56:14",
+      "evidence": [
+        {
+          "evidence_id": "e12",
+          "tool": "get_incident_details",
+          "path": "incident.last_seen",
+          "value": "2026-04-12 21:56:14",
+          "normalized_value": null
+        }
+      ]
+    },
+    "action": {
+      "value": "Log",
+      "evidence": [
+        {
+          "evidence_id": "e10",
+          "tool": "get_incident_details",
+          "path": "incident.action",
+          "value": "Log",
+          "normalized_value": null
+        }
+      ]
+    }
+  },
+  "incident_snapshot": {
+    "incident": {
+      "incident_id": 5468293,
+      "process": "sample_7.bin",
+      "process_path": "C:\\Users\\Alice\\Downloads\\sample_7.bin",
+      "process_type": "32 bit",
+      "signature_status": "unsigned",
+      "host": "win-edr-2",
+      "logged_user": "WIN-EDR-2\\Alice",
+      "process_owner": "WIN-EDR-2\\Alice",
+      "severity": "Critical",
+      "classification": "Malicious",
+      "handling_state": "Unhandled",
+      "action": "Log",
+      "first_seen": "2026-04-12 21:56:14",
+      "last_seen": "2026-04-12 21:56:14",
+      "organization": "FabricLab",
+      "seen": false,
+      "archived": false,
+      "muted": false,
+      "threat_name": "Pepex.M!tr",
+      "threat_family": "W32",
+      "collectors": [],
+      "destinations": [
+        "File Execution Attempt"
+      ],
+      "rules": [
+        "Malicious File Detected"
+      ]
+    },
+    "raw_data_item_count": 1,
+    "forensics_event_count": 1
+  },
+  "derived_context": {
+    "matched_rules": [
+      "Malicious File Detected"
+    ],
+    "violated_policies": [
+      "POD - Execution Prevention"
+    ],
+    "matched_rule_descriptions": [
+      {
+        "policy_name": "Execution Prevention",
+        "rule_name": "Malicious File Detected",
+        "rule_subtitle": null,
+        "rule_details": "The file was identified as malicious by our machine-learning engine or by other means, based on analysis of the file.",
+        "forensics_recommendations": "Retrieve the executable file from the targeted device, based on its path. Use the Forensics tab to perform deeper analysis. Verify the origin of the file and its intended use in the organization",
+        "source": "FortiEDR_Security_Policies.txt"
+      }
+    ],
+    "process_stack": [
+      {
+        "process_name": "smss.exe",
+        "process_path": "\\Device\\HarddiskVolume3\\Windows\\System32\\smss.exe",
+        "process_owner": "Local System",
+        "command_line": null,
+        "highlighted": false
+      },
+      {
+        "process_name": "winlogon.exe",
+        "process_path": "\\Device\\HarddiskVolume3\\Windows\\System32\\winlogon.exe",
+        "process_owner": "Local System",
+        "command_line": null,
+        "highlighted": false
+      },
+      {
+        "process_name": "userinit.exe",
+        "process_path": "\\Device\\HarddiskVolume3\\Windows\\System32\\userinit.exe",
+        "process_owner": "WIN-EDR-2\\Alice",
+        "command_line": null,
+        "highlighted": false
+      },
+      {
+        "process_name": "explorer.exe",
+        "process_path": "\\Device\\HarddiskVolume3\\Windows\\explorer.exe",
+        "process_owner": "WIN-EDR-2\\Alice",
+        "command_line": null,
+        "highlighted": false
+      },
+      {
+        "process_name": "WindowsTerminal.exe",
+        "process_path": "\\Device\\HarddiskVolume3\\Program Files\\WindowsApps\\Microsoft.WindowsTerminal_1.23.20211.0_x64__8wekyb3d8bbwe\\WindowsTerminal.exe",
+        "process_owner": "WIN-EDR-2\\Alice",
+        "command_line": null,
+        "highlighted": false
+      },
+      {
+        "process_name": "cmd.exe",
+        "process_path": "\\Device\\HarddiskVolume3\\Windows\\System32\\cmd.exe",
+        "process_owner": "WIN-EDR-2\\Alice",
+        "command_line": null,
+        "highlighted": false
+      },
+      {
+        "process_name": "sample_7.bin",
+        "process_path": "\\Device\\HarddiskVolume3\\Users\\Alice\\Downloads\\sample_7.bin",
+        "process_owner": "WIN-EDR-2\\Alice",
+        "command_line": null,
+        "highlighted": true
+      }
+    ],
+    "relevant_command_lines": [],
+    "launch_context_clues": [
+      "Process stack indicates the highlighted process was launched by cmd.exe.",
+      "Incident process path points to a Downloads directory.",
+      "Forensics context: File Execution Attempt."
+    ],
+    "forensics_summary": {
+      "selected_count": 1,
+      "certificate_status": "Unsigned",
+      "process_owner": "WIN-EDR-2\\Alice",
+      "host_state": "Deleted",
+      "handling_tooltip": "The file sample_7.bin is classified as malicious. Detected as Pepex.M!tr malware.File \\Device\\HarddiskVolume3\\Users\\Alice\\Downloads\\sample_7.bin was detected as malicious based on AV signature On the device \"win-edr-2\"",
+      "destinations": [
+        "File Execution Attempt"
+      ],
+      "process_script_module": "",
+      "process_script_module_path": null
+    }
+  },
+  "raw_data_items": [
+    {
+      "EventId": 1596778180,
+      "EventType": 8192,
+      "FirstSeen": 1776045374000,
+      "LastSeen": 1776045374000,
+      "Count": 1,
+      "HostName": "win-edr-2",
+      "LoggedUsers": [
+        {
+          "Name": "WIN-EDR-2\\Alice",
+          "LogonTime": 1776025626
+        }
+      ],
+      "Application": "\\Device\\HarddiskVolume3\\Users\\Alice\\Downloads\\sample_7.bin",
+      "OperatingSystem": "Windows 11 Pro",
+      "EventClassification": "ClassificationMalicious",
+      "EventClassificationStage": 1,
+      "AppSourceAlert": 2,
+      "AppDetails": {
+        "Executable": "\\Device\\HarddiskVolume3\\Users\\Alice\\Downloads\\sample_7.bin"
+      },
+      "Alerts": [
+        {
+          "Policy": "POD - Execution Prevention",
+          "Severity": "Critical",
+          "MainApp": {
+            "Executable": "\\Device\\HarddiskVolume3\\Users\\Alice\\Downloads\\sample_7.bin"
+          }
+        },
+        {
+          "Policy": "POD - Execution Prevention",
+          "Severity": "Critical",
+          "MainApp": {
+            "Executable": "\\Device\\HarddiskVolume3\\Users\\Alice\\Downloads\\sample_7.bin"
+          }
+        }
+      ]
+    }
+  ],
+  "host_context": null,
+  "related_events": null,
+  "evidence_catalog": [
+    {
+      "evidence_id": "e1",
+      "tool": "get_incident_details",
+      "path": "incident.incident_id",
+      "value": 5468293,
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e2",
+      "tool": "get_incident_details",
+      "path": "incident.process",
+      "value": "sample_7.bin",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e3",
+      "tool": "get_incident_details",
+      "path": "incident.process_path",
+      "value": "C:\\Users\\Alice\\Downloads\\sample_7.bin",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e4",
+      "tool": "get_incident_details",
+      "path": "incident.process_type",
+      "value": "32 bit",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e5",
+      "tool": "get_incident_details",
+      "path": "incident.logged_user",
+      "value": "WIN-EDR-2\\Alice",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e6",
+      "tool": "get_incident_details",
+      "path": "incident.process_owner",
+      "value": "WIN-EDR-2\\Alice",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e7",
+      "tool": "get_incident_details",
+      "path": "incident.severity",
+      "value": "Critical",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e8",
+      "tool": "get_incident_details",
+      "path": "incident.classification",
+      "value": "Malicious",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e9",
+      "tool": "get_incident_details",
+      "path": "incident.handling_state",
+      "value": "Unhandled",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e10",
+      "tool": "get_incident_details",
+      "path": "incident.action",
+      "value": "Log",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e11",
+      "tool": "get_incident_details",
+      "path": "incident.first_seen",
+      "value": "2026-04-12 21:56:14",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e12",
+      "tool": "get_incident_details",
+      "path": "incident.last_seen",
+      "value": "2026-04-12 21:56:14",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e13",
+      "tool": "get_incident_details",
+      "path": "incident.organization",
+      "value": "FabricLab",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e14",
+      "tool": "get_incident_details",
+      "path": "incident.seen",
+      "value": false,
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e15",
+      "tool": "get_incident_details",
+      "path": "incident.archived",
+      "value": false,
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e16",
+      "tool": "get_incident_details",
+      "path": "incident.muted",
+      "value": false,
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e17",
+      "tool": "get_incident_details",
+      "path": "incident.threat_name",
+      "value": "Pepex.M!tr",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e18",
+      "tool": "get_incident_details",
+      "path": "incident.threat_family",
+      "value": "W32",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e19",
+      "tool": "get_incident_details",
+      "path": "incident.destinations",
+      "value": [
+        "File Execution Attempt"
+      ],
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e20",
+      "tool": "get_incident_details",
+      "path": "incident.rules",
+      "value": [
+        "Malicious File Detected"
+      ],
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e21",
+      "tool": "get_incident_details",
+      "path": "incident.host",
+      "value": "win-edr-2",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e22",
+      "tool": "get_incident_details",
+      "path": "incident.rules",
+      "value": [
+        "Malicious File Detected"
+      ],
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e23",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].Alerts[0].Policy",
+      "value": "POD - Execution Prevention",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e24",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].Alerts[1].Policy",
+      "value": "POD - Execution Prevention",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e25",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[0].ProcessName",
+      "value": "\\Device\\HarddiskVolume3\\Users\\Alice\\Downloads\\sample_7.bin",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e26",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[0].CommonAdditionalInfo[4].ProcessOwner",
+      "value": "WIN-EDR-2\\Alice",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e27",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[1].ProcessName",
+      "value": "\\Device\\HarddiskVolume3\\Windows\\System32\\cmd.exe",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e28",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[1].CommonAdditionalInfo[0].ProcessOwner",
+      "value": "WIN-EDR-2\\Alice",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e29",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[2].ProcessName",
+      "value": "\\Device\\HarddiskVolume3\\Program Files\\WindowsApps\\Microsoft.WindowsTerminal_1.23.20211.0_x64__8wekyb3d8bbwe\\WindowsTerminal.exe",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e30",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[2].CommonAdditionalInfo[0].ProcessOwner",
+      "value": "WIN-EDR-2\\Alice",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e31",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[3].ProcessName",
+      "value": "\\Device\\HarddiskVolume3\\Windows\\explorer.exe",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e32",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[3].CommonAdditionalInfo[0].ProcessOwner",
+      "value": "WIN-EDR-2\\Alice",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e33",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[4].ProcessName",
+      "value": "\\Device\\HarddiskVolume3\\Windows\\System32\\userinit.exe",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e34",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[4].CommonAdditionalInfo[0].ProcessOwner",
+      "value": "WIN-EDR-2\\Alice",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e35",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[5].CommonAdditionalInfo[1].CommandLine",
+      "value": "{F420F273-0098-42D5-8832-0FCB66420000}",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e36",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[5].ProcessName",
+      "value": "\\Device\\HarddiskVolume3\\Windows\\System32\\winlogon.exe",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e37",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[5].CommonAdditionalInfo[0].ProcessOwner",
+      "value": "Local System",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e38",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[6].CommonAdditionalInfo[1].CommandLine",
+      "value": "000000f8 000000e0 winlogon.exe {F420F273-0098-42D5-8832-0FCB66420000}",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e39",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[6].ProcessName",
+      "value": "\\Device\\HarddiskVolume3\\Windows\\System32\\smss.exe",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e40",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[6].CommonAdditionalInfo[0].ProcessOwner",
+      "value": "Local System",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e41",
+      "tool": "get_forensics_events",
+      "path": "forensics_events.selected_events[0].certificate_status",
+      "value": "Unsigned",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e42",
+      "tool": "get_forensics_events",
+      "path": "forensics_events.selected_events[0].process_owner",
+      "value": "WIN-EDR-2\\Alice",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e43",
+      "tool": "get_forensics_events",
+      "path": "forensics_events.selected_events[0].host_state",
+      "value": "Deleted",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e44",
+      "tool": "get_forensics_events",
+      "path": "forensics_events.selected_events[0].destinations",
+      "value": [
+        "File Execution Attempt"
+      ],
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e45",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[0].CommonAdditionalInfo[3].FileHashMD5",
+      "value": "509B46BD594E2B5CB48AAF07784D3A00",
+      "normalized_value": null
+    },
+    {
+      "evidence_id": "e46",
+      "tool": "get_incident_details",
+      "path": "raw_data_items[0].StackInfos[0].CommonAdditionalInfo[3].FileHashSHA2",
+      "value": "7472FDE428C121D359C24053910C77BC35A1581CAFCAE279088B608A11070610",
+      "normalized_value": null
+    }
+  ],
+  "missing_source_data": []
+}

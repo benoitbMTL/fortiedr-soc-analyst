@@ -1,0 +1,8 @@
+model,status,duration_seconds,timed_out,json_valid,schema_valid,prompt_tokens,completion_tokens,total_tokens,error
+llama3.1:8b,timeout,300.117,True,False,False,,,,Timed out after 300 seconds.
+phi3:mini,timeout,300.105,True,False,False,,,,Timed out after 300 seconds.
+gemma3:4b,timeout,300.107,True,False,False,,,,Timed out after 300 seconds.
+gemma3:1b,schema_error,123.492,False,True,False,4096,261,4357,"Structured incident analysis did not match the incident_senior_soc_v1 schema.. key_metadata.hashes: Value error, Hash values must include evidence when present."
+qwen2.5:1.5b,timeout,300.107,True,False,False,,,,Timed out after 300 seconds.
+qwen2.5:3b,timeout,300.109,True,False,False,,,,Timed out after 300 seconds.
+qwen2.5:7b,timeout,300.107,True,False,False,,,,Timed out after 300 seconds.

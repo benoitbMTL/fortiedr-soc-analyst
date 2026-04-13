@@ -1,0 +1,376 @@
+{
+  "$defs": {
+    "EvidenceBackedValue": {
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceReference"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "title": "EvidenceBackedValue",
+      "type": "object"
+    },
+    "EvidenceReference": {
+      "properties": {
+        "evidence_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Stable evidence identifier from the analysis input catalog.",
+          "title": "Evidence Id"
+        },
+        "normalized_value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Normalized Value"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "tool": {
+          "title": "Tool",
+          "type": "string"
+        },
+        "value": {
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "tool",
+        "path"
+      ],
+      "title": "EvidenceReference",
+      "type": "object"
+    },
+    "HashMetadata": {
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceReference"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "md5": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Md5"
+        },
+        "sha1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha1"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
+        }
+      },
+      "title": "HashMetadata",
+      "type": "object"
+    },
+    "Hypothesis": {
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/HypothesisConfidence"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "confidence",
+        "rationale"
+      ],
+      "title": "Hypothesis",
+      "type": "object"
+    },
+    "HypothesisConfidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "HypothesisConfidence",
+      "type": "string"
+    },
+    "InvestigationNote": {
+      "properties": {
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "topic": {
+          "title": "Topic",
+          "type": "string"
+        }
+      },
+      "required": [
+        "topic",
+        "content"
+      ],
+      "title": "InvestigationNote",
+      "type": "object"
+    },
+    "KeyMetadata": {
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "classification": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "first_seen": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "hashes": {
+          "$ref": "#/$defs/HashMetadata"
+        },
+        "hostname": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "last_seen": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "process_name": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "process_path": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "severity": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "user": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        }
+      },
+      "required": [
+        "hostname",
+        "user",
+        "process_name",
+        "process_path",
+        "hashes",
+        "severity",
+        "classification",
+        "first_seen",
+        "last_seen",
+        "action"
+      ],
+      "title": "KeyMetadata",
+      "type": "object"
+    },
+    "ObservedFact": {
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceReference"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "statement": {
+          "title": "Statement",
+          "type": "string"
+        }
+      },
+      "required": [
+        "statement",
+        "evidence"
+      ],
+      "title": "ObservedFact",
+      "type": "object"
+    },
+    "PossibleClassification": {
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/PossibleClassificationLabel"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "rationale"
+      ],
+      "title": "PossibleClassification",
+      "type": "object"
+    },
+    "PossibleClassificationLabel": {
+      "enum": [
+        "false_positive",
+        "legitimate_admin_activity",
+        "red_team_activity",
+        "suspicious_activity_requiring_validation",
+        "confirmed_malicious_activity"
+      ],
+      "title": "PossibleClassificationLabel",
+      "type": "string"
+    },
+    "RecommendedNextSteps": {
+      "properties": {
+        "immediate": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Immediate",
+          "type": "array"
+        },
+        "short_term": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Short Term",
+          "type": "array"
+        },
+        "validation": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Validation",
+          "type": "array"
+        }
+      },
+      "title": "RecommendedNextSteps",
+      "type": "object"
+    },
+    "RiskLevel": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "RiskLevel",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "executive_summary": {
+      "title": "Executive Summary",
+      "type": "string"
+    },
+    "hypotheses": {
+      "items": {
+        "$ref": "#/$defs/Hypothesis"
+      },
+      "title": "Hypotheses",
+      "type": "array"
+    },
+    "incident_id": {
+      "title": "Incident Id",
+      "type": "string"
+    },
+    "investigation_notes": {
+      "items": {
+        "$ref": "#/$defs/InvestigationNote"
+      },
+      "title": "Investigation Notes",
+      "type": "array"
+    },
+    "key_metadata": {
+      "$ref": "#/$defs/KeyMetadata"
+    },
+    "missing_information": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Information",
+      "type": "array"
+    },
+    "observed_facts": {
+      "items": {
+        "$ref": "#/$defs/ObservedFact"
+      },
+      "title": "Observed Facts",
+      "type": "array"
+    },
+    "possible_classification": {
+      "$ref": "#/$defs/PossibleClassification"
+    },
+    "recommended_next_steps": {
+      "$ref": "#/$defs/RecommendedNextSteps"
+    },
+    "risk_level": {
+      "$ref": "#/$defs/RiskLevel"
+    },
+    "skill_version": {
+      "const": "incident_senior_soc_v1",
+      "title": "Skill Version",
+      "type": "string"
+    },
+    "verdict": {
+      "title": "Verdict",
+      "type": "string"
+    }
+  },
+  "required": [
+    "skill_version",
+    "incident_id",
+    "executive_summary",
+    "risk_level",
+    "key_metadata",
+    "possible_classification",
+    "recommended_next_steps",
+    "verdict"
+  ],
+  "title": "IncidentAnalysisResult",
+  "type": "object"
+}

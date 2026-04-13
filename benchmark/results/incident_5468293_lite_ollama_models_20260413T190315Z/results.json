@@ -1,0 +1,272 @@
+{
+  "benchmark_name": "incident_5468293_lite_ollama_models",
+  "started_at": "2026-04-13T19:03:15.491663+00:00",
+  "finished_at": "2026-04-13T19:35:19.640947+00:00",
+  "incident_id": 5468293,
+  "profile": "LITE",
+  "skill_name": "incident_senior_soc_v1",
+  "server_url": "http://10.163.3.76:11434/",
+  "timeout_seconds_per_model": 300,
+  "normalized_input_path": "/home/benoitb/fortiedr-soc-analyst/benchmark/results/incident_5468293_lite_ollama_models_20260413T190315Z/normalized_input.json",
+  "normalized_input_sha256": "0c5e1060e8b288b16416803247c14ac7a0cbd1acd5ce79b12890a46872013e4d",
+  "skill_snapshot_path": "/home/benoitb/fortiedr-soc-analyst/benchmark/results/incident_5468293_lite_ollama_models_20260413T190315Z/skill_snapshot.json",
+  "models": [
+    "llama3.1:8b",
+    "phi3:mini",
+    "gemma3:4b",
+    "gemma3:1b",
+    "qwen2.5:1.5b",
+    "qwen2.5:3b",
+    "qwen2.5:7b"
+  ],
+  "runs": [
+    {
+      "model": "llama3.1:8b",
+      "started_at": "2026-04-13T19:03:15.491663+00:00",
+      "finished_at": "2026-04-13T19:08:15.608703+00:00",
+      "duration_seconds": 300.117,
+      "status": "timeout",
+      "timed_out": true,
+      "json_valid": false,
+      "schema_valid": false,
+      "error": "Timed out after 300 seconds.",
+      "output_preview": "",
+      "output_present": false,
+      "output_char_count": 0,
+      "output_key_count": 0,
+      "top_level_fields_populated": 0,
+      "top_level_fields_expected": 0,
+      "token_usage": null,
+      "request_id": null,
+      "provider_name": "ollama",
+      "raw_output": null,
+      "validated_output": null,
+      "response_metadata": {},
+      "incident_id": 5468293,
+      "profile": "LITE",
+      "raw_output_path": null,
+      "validated_output_path": null
+    },
+    {
+      "model": "phi3:mini",
+      "started_at": "2026-04-13T19:08:15.610511+00:00",
+      "finished_at": "2026-04-13T19:13:15.715969+00:00",
+      "duration_seconds": 300.105,
+      "status": "timeout",
+      "timed_out": true,
+      "json_valid": false,
+      "schema_valid": false,
+      "error": "Timed out after 300 seconds.",
+      "output_preview": "",
+      "output_present": false,
+      "output_char_count": 0,
+      "output_key_count": 0,
+      "top_level_fields_populated": 0,
+      "top_level_fields_expected": 0,
+      "token_usage": null,
+      "request_id": null,
+      "provider_name": "ollama",
+      "raw_output": null,
+      "validated_output": null,
+      "response_metadata": {},
+      "incident_id": 5468293,
+      "profile": "LITE",
+      "raw_output_path": null,
+      "validated_output_path": null
+    },
+    {
+      "model": "gemma3:4b",
+      "started_at": "2026-04-13T19:13:15.716467+00:00",
+      "finished_at": "2026-04-13T19:18:15.823053+00:00",
+      "duration_seconds": 300.107,
+      "status": "timeout",
+      "timed_out": true,
+      "json_valid": false,
+      "schema_valid": false,
+      "error": "Timed out after 300 seconds.",
+      "output_preview": "",
+      "output_present": false,
+      "output_char_count": 0,
+      "output_key_count": 0,
+      "top_level_fields_populated": 0,
+      "top_level_fields_expected": 0,
+      "token_usage": null,
+      "request_id": null,
+      "provider_name": "ollama",
+      "raw_output": null,
+      "validated_output": null,
+      "response_metadata": {},
+      "incident_id": 5468293,
+      "profile": "LITE",
+      "raw_output_path": null,
+      "validated_output_path": null
+    },
+    {
+      "model": "gemma3:1b",
+      "started_at": "2026-04-13T19:18:15.823669+00:00",
+      "finished_at": "2026-04-13T19:20:19.316085+00:00",
+      "duration_seconds": 123.492,
+      "worker_started_at": "2026-04-13T19:18:16.058988+00:00",
+      "worker_finished_at": "2026-04-13T19:20:19.249028+00:00",
+      "worker_duration_seconds": 123.19,
+      "status": "schema_error",
+      "json_valid": true,
+      "schema_valid": false,
+      "error": "Structured incident analysis did not match the incident_senior_soc_v1 schema.. key_metadata.hashes: Value error, Hash values must include evidence when present.",
+      "raw_output": {
+        "skill_version": "incident_senior_soc_v1",
+        "incident_id": "1234567890",
+        "executive_summary": "Log",
+        "risk_level": "critical",
+        "key_metadata": {
+          "hostname": {
+            "value": null
+          },
+          "user": {
+            "value": null
+          },
+          "process_name": {
+            "value": null
+          },
+          "process_path": {
+            "value": null
+          },
+          "hashes": {
+            "md5": "1234567890"
+          },
+          "severity": {
+            "value": null
+          },
+          "classification": {
+            "value": null
+          },
+          "first_seen": {
+            "value": null
+          },
+          "last_seen": {
+            "value": null
+          },
+          "action": {
+            "value": null
+          }
+        },
+        "possible_classification": {
+          "label": "suspicious_activity_requiring_validation",
+          "rationale": "The event is flagged as critical due to the high risk level and the presence of a malicious executable."
+        },
+        "recommended_next_steps": {
+          "validation": []
+        },
+        "verdict": "malicious"
+      },
+      "validated_output": null,
+      "output_preview": "{\"skill_version\": \"incident_senior_soc_v1\", \"incident_id\": \"1234567890\", \"executive_summary\": \"Log\", \"risk_level\": \"critical\", \"key_metadata\": {\"hostname\": {\"value\": null}, \"user\": {\"value\": null}, \"process_name\": {\"value\": null}, \"process_path\": {\"value\": null}, \"hashes\": {\"md5\": \"1234567890\"}, \"severity\": {\"value\": null}, \"classification\": {\"value\": null}, \"first_seen\": {\"value\": null}, \"last_se",
+      "output_present": true,
+      "output_char_count": 721,
+      "output_key_count": 8,
+      "top_level_fields_populated": 8,
+      "top_level_fields_expected": 12,
+      "request_id": null,
+      "provider_name": "ollama",
+      "model_name": "gemma3:1b",
+      "token_usage": {
+        "prompt_tokens": 4096,
+        "completion_tokens": 261,
+        "total_tokens": 4357
+      },
+      "response_metadata": {
+        "total_duration": 123126451219,
+        "load_duration": 2111119863,
+        "done_reason": "stop",
+        "content_parse_mode": "direct",
+        "raw_content_preview": "{\"skill_version\": \"incident_senior_soc_v1\" , \"incident_id\": \"1234567890\" , \"executive_summary\": \"Log\", \"risk_level\": \"critical\", \"key_metadata\": { \"hostname\": { \"value\": null } , \"user\": { \"value\": null } , \"process_name\": { \"value\": null } , \"process_path\": { \"value\": null } , \"hashes\": { \"md5\": \"1234567890\" } , \"severity\": { \"value\": null } , \"classification\": { \"value\": null } , \"first_seen\": { \"value\": null } , \"last_seen\": { \"value\": null } , \"action\": { \"value\": null } } , \"possible_classi"
+      },
+      "timed_out": false,
+      "incident_id": 5468293,
+      "profile": "LITE",
+      "raw_output_path": "/home/benoitb/fortiedr-soc-analyst/benchmark/results/incident_5468293_lite_ollama_models_20260413T190315Z/outputs/gemma3_1b-raw_output.json",
+      "validated_output_path": null
+    },
+    {
+      "model": "qwen2.5:1.5b",
+      "started_at": "2026-04-13T19:20:19.316716+00:00",
+      "finished_at": "2026-04-13T19:25:19.423849+00:00",
+      "duration_seconds": 300.107,
+      "status": "timeout",
+      "timed_out": true,
+      "json_valid": false,
+      "schema_valid": false,
+      "error": "Timed out after 300 seconds.",
+      "output_preview": "",
+      "output_present": false,
+      "output_char_count": 0,
+      "output_key_count": 0,
+      "top_level_fields_populated": 0,
+      "top_level_fields_expected": 0,
+      "token_usage": null,
+      "request_id": null,
+      "provider_name": "ollama",
+      "raw_output": null,
+      "validated_output": null,
+      "response_metadata": {},
+      "incident_id": 5468293,
+      "profile": "LITE",
+      "raw_output_path": null,
+      "validated_output_path": null
+    },
+    {
+      "model": "qwen2.5:3b",
+      "started_at": "2026-04-13T19:25:19.424764+00:00",
+      "finished_at": "2026-04-13T19:30:19.533452+00:00",
+      "duration_seconds": 300.109,
+      "status": "timeout",
+      "timed_out": true,
+      "json_valid": false,
+      "schema_valid": false,
+      "error": "Timed out after 300 seconds.",
+      "output_preview": "",
+      "output_present": false,
+      "output_char_count": 0,
+      "output_key_count": 0,
+      "top_level_fields_populated": 0,
+      "top_level_fields_expected": 0,
+      "token_usage": null,
+      "request_id": null,
+      "provider_name": "ollama",
+      "raw_output": null,
+      "validated_output": null,
+      "response_metadata": {},
+      "incident_id": 5468293,
+      "profile": "LITE",
+      "raw_output_path": null,
+      "validated_output_path": null
+    },
+    {
+      "model": "qwen2.5:7b",
+      "started_at": "2026-04-13T19:30:19.534237+00:00",
+      "finished_at": "2026-04-13T19:35:19.640947+00:00",
+      "duration_seconds": 300.107,
+      "status": "timeout",
+      "timed_out": true,
+      "json_valid": false,
+      "schema_valid": false,
+      "error": "Timed out after 300 seconds.",
+      "output_preview": "",
+      "output_present": false,
+      "output_char_count": 0,
+      "output_key_count": 0,
+      "top_level_fields_populated": 0,
+      "top_level_fields_expected": 0,
+      "token_usage": null,
+      "request_id": null,
+      "provider_name": "ollama",
+      "raw_output": null,
+      "validated_output": null,
+      "response_metadata": {},
+      "incident_id": 5468293,
+      "profile": "LITE",
+      "raw_output_path": null,
+      "validated_output_path": null
+    }
+  ]
+}

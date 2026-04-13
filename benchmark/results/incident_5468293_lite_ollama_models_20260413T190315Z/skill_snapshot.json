@@ -1,0 +1,383 @@
+{
+  "skill_name": "incident_senior_soc",
+  "skill_version": "incident_senior_soc_v1",
+  "description": "Generate a conservative senior-SOC incident assessment from normalized FortiEDR data.",
+  "system_instructions": "You are producing a product-grade SOC analysis object from FortiEDR-derived incident context.\n\nYou must follow these rules exactly:\n1. Return the final answer only through the structured output tool.\n2. Treat `observed_facts` as confirmed statements only. Every observed fact must cite at least one evidence item from the provided `evidence_catalog`.\n3. Do not invent evidence. Copy cited evidence fields from the catalog exactly, including `evidence_id`, `tool`, `path`, and `value`.\n3a. Prefer citing the original evidence object as-is instead of rewriting it. Do not create deeper nested paths than the ones already present in `evidence_catalog`.\n3b. Do not put missing-data statements in `observed_facts`. If host context, hostname, hashes, or any other source detail is unavailable, record that only in `missing_information`.\n4. `hypotheses` are allowed to infer, but they must remain separate from `observed_facts` and must include confidence plus rationale.\n5. If information is unavailable, set the relevant metadata `value` to null or add an item to `missing_information`.\n6. Be conservative with `possible_classification`. Use `confirmed_malicious_activity` only when the visible evidence strongly supports it.\n7. Prefer concise, operationally useful language over narrative flourish.\n8. The `executive_summary` and `verdict` may synthesize, but they must not contradict the observed facts.\n9. When a key metadata field has a non-null value, include evidence for that field.\n10. Use the provided `missing_source_data` entries when they are relevant. Do not guess the missing values.\n\nInterpretation guidance:\n- `incident_snapshot` contains the primary incident payload derived from FortiEDR.\n- `derived_context` contains curated execution-context enrichment such as matched rules, violated policies, matched rule descriptions, process stack, command lines, launch clues, and a light forensics summary.\n- `raw_data_items` contain raw FortiEDR event fragments.\n- `host_context` summarizes nearby host state and recent host incidents when available.\n- `related_events` summarizes pivots derived from the same incident.\n- `key_metadata_candidates` are the most likely canonical metadata values, already paired with source evidence when known.\n\nOutput guidance:\n- `risk_level` must be one of: low, medium, high, critical.\n- `possible_classification.label` must be one of:\n  false_positive,\n  legitimate_admin_activity,\n  red_team_activity,\n  suspicious_activity_requiring_validation,\n  confirmed_malicious_activity.\n- `hypotheses.confidence` must be one of: low, medium, high.\n- Keep `observed_facts` specific and auditable.\n- Keep `recommended_next_steps` concrete and SOC-operational.",
+  "output_schema": {
+    "$defs": {
+      "EvidenceBackedValue": {
+        "properties": {
+          "value": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Value"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/$defs/EvidenceReference"
+            },
+            "title": "Evidence",
+            "type": "array"
+          }
+        },
+        "title": "EvidenceBackedValue",
+        "type": "object"
+      },
+      "EvidenceReference": {
+        "properties": {
+          "evidence_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Stable evidence identifier from the analysis input catalog.",
+            "title": "Evidence Id"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "value": {
+            "default": null,
+            "title": "Value"
+          },
+          "normalized_value": {
+            "anyOf": [
+              {},
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Normalized Value"
+          }
+        },
+        "required": [
+          "tool",
+          "path"
+        ],
+        "title": "EvidenceReference",
+        "type": "object"
+      },
+      "HashMetadata": {
+        "properties": {
+          "md5": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Md5"
+          },
+          "sha1": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Sha1"
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Sha256"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/$defs/EvidenceReference"
+            },
+            "title": "Evidence",
+            "type": "array"
+          }
+        },
+        "title": "HashMetadata",
+        "type": "object"
+      },
+      "Hypothesis": {
+        "properties": {
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "confidence": {
+            "$ref": "#/$defs/HypothesisConfidence"
+          },
+          "rationale": {
+            "title": "Rationale",
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "confidence",
+          "rationale"
+        ],
+        "title": "Hypothesis",
+        "type": "object"
+      },
+      "HypothesisConfidence": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "title": "HypothesisConfidence",
+        "type": "string"
+      },
+      "InvestigationNote": {
+        "properties": {
+          "topic": {
+            "title": "Topic",
+            "type": "string"
+          },
+          "content": {
+            "title": "Content",
+            "type": "string"
+          }
+        },
+        "required": [
+          "topic",
+          "content"
+        ],
+        "title": "InvestigationNote",
+        "type": "object"
+      },
+      "KeyMetadata": {
+        "properties": {
+          "hostname": {
+            "$ref": "#/$defs/EvidenceBackedValue"
+          },
+          "user": {
+            "$ref": "#/$defs/EvidenceBackedValue"
+          },
+          "process_name": {
+            "$ref": "#/$defs/EvidenceBackedValue"
+          },
+          "process_path": {
+            "$ref": "#/$defs/EvidenceBackedValue"
+          },
+          "hashes": {
+            "$ref": "#/$defs/HashMetadata"
+          },
+          "severity": {
+            "$ref": "#/$defs/EvidenceBackedValue"
+          },
+          "classification": {
+            "$ref": "#/$defs/EvidenceBackedValue"
+          },
+          "first_seen": {
+            "$ref": "#/$defs/EvidenceBackedValue"
+          },
+          "last_seen": {
+            "$ref": "#/$defs/EvidenceBackedValue"
+          },
+          "action": {
+            "$ref": "#/$defs/EvidenceBackedValue"
+          }
+        },
+        "required": [
+          "hostname",
+          "user",
+          "process_name",
+          "process_path",
+          "hashes",
+          "severity",
+          "classification",
+          "first_seen",
+          "last_seen",
+          "action"
+        ],
+        "title": "KeyMetadata",
+        "type": "object"
+      },
+      "ObservedFact": {
+        "properties": {
+          "statement": {
+            "title": "Statement",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/$defs/EvidenceReference"
+            },
+            "minItems": 1,
+            "title": "Evidence",
+            "type": "array"
+          }
+        },
+        "required": [
+          "statement",
+          "evidence"
+        ],
+        "title": "ObservedFact",
+        "type": "object"
+      },
+      "PossibleClassification": {
+        "properties": {
+          "label": {
+            "$ref": "#/$defs/PossibleClassificationLabel"
+          },
+          "rationale": {
+            "title": "Rationale",
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "rationale"
+        ],
+        "title": "PossibleClassification",
+        "type": "object"
+      },
+      "PossibleClassificationLabel": {
+        "enum": [
+          "false_positive",
+          "legitimate_admin_activity",
+          "red_team_activity",
+          "suspicious_activity_requiring_validation",
+          "confirmed_malicious_activity"
+        ],
+        "title": "PossibleClassificationLabel",
+        "type": "string"
+      },
+      "RecommendedNextSteps": {
+        "properties": {
+          "immediate": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Immediate",
+            "type": "array"
+          },
+          "short_term": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Short Term",
+            "type": "array"
+          },
+          "validation": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Validation",
+            "type": "array"
+          }
+        },
+        "title": "RecommendedNextSteps",
+        "type": "object"
+      },
+      "RiskLevel": {
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ],
+        "title": "RiskLevel",
+        "type": "string"
+      }
+    },
+    "properties": {
+      "skill_version": {
+        "const": "incident_senior_soc_v1",
+        "title": "Skill Version",
+        "type": "string"
+      },
+      "incident_id": {
+        "title": "Incident Id",
+        "type": "string"
+      },
+      "executive_summary": {
+        "title": "Executive Summary",
+        "type": "string"
+      },
+      "risk_level": {
+        "$ref": "#/$defs/RiskLevel"
+      },
+      "key_metadata": {
+        "$ref": "#/$defs/KeyMetadata"
+      },
+      "observed_facts": {
+        "items": {
+          "$ref": "#/$defs/ObservedFact"
+        },
+        "title": "Observed Facts",
+        "type": "array"
+      },
+      "investigation_notes": {
+        "items": {
+          "$ref": "#/$defs/InvestigationNote"
+        },
+        "title": "Investigation Notes",
+        "type": "array"
+      },
+      "hypotheses": {
+        "items": {
+          "$ref": "#/$defs/Hypothesis"
+        },
+        "title": "Hypotheses",
+        "type": "array"
+      },
+      "possible_classification": {
+        "$ref": "#/$defs/PossibleClassification"
+      },
+      "recommended_next_steps": {
+        "$ref": "#/$defs/RecommendedNextSteps"
+      },
+      "missing_information": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Missing Information",
+        "type": "array"
+      },
+      "verdict": {
+        "title": "Verdict",
+        "type": "string"
+      }
+    },
+    "required": [
+      "skill_version",
+      "incident_id",
+      "executive_summary",
+      "risk_level",
+      "key_metadata",
+      "possible_classification",
+      "recommended_next_steps",
+      "verdict"
+    ],
+    "title": "IncidentAnalysisResult",
+    "type": "object"
+  },
+  "user_prompt_preview": "Analyze the FortiEDR incident context below and return the final result using the structured output contract.\n\nIncident context JSON:\n{\n  \"derived_context\": {\n    \"forensics_summary\": {\n      \"certificate_status\": \"Unsigned\",\n      \"destinations\": [\n        \"File Execution Attempt\"\n      ],\n      \"handling_tooltip\": \"The file sample_7.bin is classified as malicious. Detected as Pepex.M!tr malware.File \\\\Device\\\\HarddiskVolume3\\\\Users\\\\Alice\\\\Downloads\\\\sample_7.bin was detected as malicious based on AV signature On the device \\\"win-edr-2\\\"\",\n      \"host_state\": \"Deleted\",\n      \"process_owner\": \"WIN-EDR-2\\\\Alice\",\n      \"process_script_module\": \"\",\n      \"process_script_module_path\": null,\n      \"selected_count\": 1\n    },\n    \"launch_context_clues\": [\n      \"Process stack indicates the highlighted process was launched by cmd.exe.\",\n      \"Incident process path points to a Downloads directory.\",\n      \"Forensics context: File Execution Attempt.\"\n    ],\n    \"matched_rule_descriptions\": [\n      {\n        \"forensics_recommendations\": \"Retrieve the executable file from the targeted device, based on its path. Use the Forensics tab to perform deeper analysis. Verify the origin of the file and its intended use in the organization\",\n        \"policy_name\": \"Execution Prevention\",\n        \"rule_details\": \"The file was identified as malicious by our machine-learning engine or by other means, based on analysis of the file.\",\n        \"rule_name\": \"Malicious File Detected\",\n        \"rule_subtitle\": null,\n        \"source\": \"FortiEDR_Security_Policies.txt\"\n      }\n    ],\n    \"matched_rules\": [\n      \"Malicious File Detected\"\n    ],\n    \"process_stack\": [\n      {\n        \"command_line\": null,\n        \"highlighted\": false,\n        \"process_name\": \"smss.exe\",\n        \"process_owner\": \"Local System\",\n        \"process_path\": \"\\\\Device\\\\HarddiskVolume3\\\\Windows\\\\System32\\\\smss.exe\"\n      },\n      {\n        \"command_line\": null,\n        \"highlighted\": false,\n        \"process_name\": \"winlogon.exe\",\n        \"process_owner\": \"Local System\",\n        \"process_path\": \"\\\\Device\\\\HarddiskVolume3\\\\Windows\\\\System32\\\\winlogon.exe\"\n      },\n      {\n        \"command_line\": null,\n        \"highlighted\": false,\n        \"process_name\": \"userinit.exe\",\n        \"process_owner\": \"WIN-EDR-2\\\\Alice\",\n        \"process_path\": \"\\\\Device\\\\HarddiskVolume3\\\\Windows\\\\System32\\\\userinit.exe\"\n      },\n      {\n        \"command_line\": null,\n        \"highlighted\": false,\n        \"process_name\": \"explorer.exe\",\n        \"process_owner\": \"WIN-EDR-2\\\\Alice\",\n        \"process_path\": \"\\\\Device\\\\HarddiskVolume3\\\\Windows\\\\explorer.exe\"\n      },\n      {\n        \"command_line\": null,\n        \"highlighted\": false,\n        \"process_name\": \"WindowsTerminal.exe\",\n        \"process_owner\": \"WIN-EDR-2\\\\Alice\",\n        \"process_path\": \"\\\\Device\\\\HarddiskVolume3\\\\Program Files\\\\WindowsApps\\\\Microsoft.WindowsTerminal_1.23.20211.0_x64__8wekyb3d8bbwe\\\\WindowsTerminal.exe\"\n      },\n      {\n        \"command_line\": null,\n        \"highlighted\": false,\n        \"process_name\": \"cmd.exe\",\n        \"process_owner\": \"WIN-EDR-2\\\\Alice\",\n        \"process_path\": \"\\\\Device\\\\HarddiskVolume3\\\\Windows\\\\System32\\\\cmd.exe\"\n      },\n      {\n        \"command_line\": null,\n        \"highlighted\": true,\n        \"process_name\": \"sample_7.bin\",\n        \"process_owner\": \"WIN-EDR-2\\\\Alice\",\n        \"process_path\": \"\\\\Device\\\\HarddiskVolume3\\\\Users\\\\Alice\\\\Downloads\\\\sample_7.bin\"\n      }\n    ],\n    \"relevant_command_lines\": [],\n    \"violated_policies\": [\n      \"POD - Execution Prevention\"\n    ]\n  },\n  \"evidence_catalog\": [\n    {\n      \"evidence_id\": \"e1\",\n      \"normalized_value\": null,\n      \"path\": \"incident.incident_id\",\n      \"tool\": \"get_incident_details\",\n      \"value\": 5468293\n    },\n    {\n      \"evidence_id\": \"e2\",\n      \"normalized_value\": null,\n      \"path\": \"incident.process\",\n      \"tool\": \"get_incident_details\",\n      \"value\": \"sample_7.bin\"\n    },\n    {\n      \"evidence_id\": \"e3\",\n      \"normalized_value\": null,\n      \""
+}

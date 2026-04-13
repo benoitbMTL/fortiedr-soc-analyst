@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Incident Detail · FortiEDR Virtual Security Analyst</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/portal/static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <a class="back-link" href="/portal">Back to incidents</a>
+      <header class="topbar">
+        <div>
+          <h1 id="incident-title">Loading incident...</h1>
+        </div>
+        <div class="actions">
+          <button id="analyze-button" class="primary-button">Analyze</button>
+          <button id="analyze-force-button" class="secondary-button">Analyze Fresh</button>
+        </div>
+      </header>
+
+      <div id="incident-banner" class="banner hidden"></div>
+
+      <main class="page-grid">
+        <section class="panel panel-wide panel-source">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Source Data</p>
+              <h2>Incident Metadata</h2>
+            </div>
+            <div class="source-chip source-chip-api">API</div>
+          </div>
+          <div id="incident-state" class="panel-state">Loading incident details...</div>
+          <div id="incident-metadata" class="hidden"></div>
+        </section>
+
+        <section class="panel panel-wide panel-llm">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Latest Analysis</p>
+              <h2>Executive Summary</h2>
+            </div>
+            <div class="source-chip source-chip-llm">LLM</div>
+          </div>
+          <div id="latest-overview-state" class="panel-state">Loading latest analysis...</div>
+          <div id="latest-overview" class="hidden"></div>
+        </section>
+
+        <section class="panel panel-wide panel-llm">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Run History</p>
+              <h2>Previous Analysis Runs</h2>
+            </div>
+            <div class="source-chip source-chip-llm">LLM</div>
+          </div>
+          <div id="history-state" class="panel-state">Loading history...</div>
+          <div id="analysis-history" class="hidden"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/portal/static/incident.js"></script>
+  </body>
+</html>

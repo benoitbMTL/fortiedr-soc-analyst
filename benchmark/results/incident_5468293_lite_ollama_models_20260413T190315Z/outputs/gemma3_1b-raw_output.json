@@ -1,0 +1,46 @@
+{
+  "skill_version": "incident_senior_soc_v1",
+  "incident_id": "1234567890",
+  "executive_summary": "Log",
+  "risk_level": "critical",
+  "key_metadata": {
+    "hostname": {
+      "value": null
+    },
+    "user": {
+      "value": null
+    },
+    "process_name": {
+      "value": null
+    },
+    "process_path": {
+      "value": null
+    },
+    "hashes": {
+      "md5": "1234567890"
+    },
+    "severity": {
+      "value": null
+    },
+    "classification": {
+      "value": null
+    },
+    "first_seen": {
+      "value": null
+    },
+    "last_seen": {
+      "value": null
+    },
+    "action": {
+      "value": null
+    }
+  },
+  "possible_classification": {
+    "label": "suspicious_activity_requiring_validation",
+    "rationale": "The event is flagged as critical due to the high risk level and the presence of a malicious executable."
+  },
+  "recommended_next_steps": {
+    "validation": []
+  },
+  "verdict": "malicious"
+}

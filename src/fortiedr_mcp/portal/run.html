@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Analysis Run · FortiEDR Virtual Security Analyst</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/portal/static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <a id="run-back-link" class="back-link" href="/portal">Back to incident</a>
+      <header class="topbar">
+        <div>
+          <h1 id="run-title">Loading run...</h1>
+        </div>
+      </header>
+
+      <main class="page-grid two-column">
+        <section class="panel panel-source">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Run Audit</p>
+              <h2>Execution Detail</h2>
+            </div>
+          </div>
+          <div id="run-state" class="panel-state">Loading run detail...</div>
+          <div id="run-summary" class="hidden"></div>
+        </section>
+
+        <section class="panel panel-source">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Analyst Feedback</p>
+              <h2>Review Outcome</h2>
+            </div>
+          </div>
+          <div id="feedback-state" class="panel-state">Loading feedback...</div>
+          <div id="feedback-panel" class="hidden">
+            <form id="feedback-form" class="form-grid">
+              <label>
+                <span>Usefulness</span>
+                <select name="usefulness">
+                  <option value="">Unset</option>
+                  <option value="useful">useful</option>
+                  <option value="not_useful">not_useful</option>
+                </select>
+              </label>
+              <label>
+                <span>Correctness</span>
+                <select name="correctness">
+                  <option value="">Unset</option>
+                  <option value="correct">correct</option>
+                  <option value="partially_correct">partially_correct</option>
+                  <option value="incorrect">incorrect</option>
+                </select>
+              </label>
+              <label>
+                <span>Classification</span>
+                <select name="analyst_classification">
+                  <option value="">Unset</option>
+                  <option value="benign">benign</option>
+                  <option value="false_positive">false_positive</option>
+                  <option value="red_team">red_team</option>
+                  <option value="malicious">malicious</option>
+                  <option value="needs_validation">needs_validation</option>
+                </select>
+              </label>
+              <label class="full-width">
+                <span>Comment</span>
+                <textarea name="comment" rows="5" placeholder="Optional analyst note"></textarea>
+              </label>
+              <div class="form-actions full-width">
+                <button type="submit" class="primary-button">Save Feedback</button>
+              </div>
+            </form>
+            <div id="feedback-message" class="small-note"></div>
+          </div>
+        </section>
+
+        <section class="panel panel-wide panel-llm">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Structured Output</p>
+              <h2>Analysis Result</h2>
+            </div>
+            <div class="source-chip source-chip-llm">LLM</div>
+          </div>
+          <div id="analysis-render" class="hidden"></div>
+        </section>
+
+        <section class="panel panel-wide panel-llm">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Audit Payloads</p>
+              <h2>Raw Inputs And Outputs</h2>
+            </div>
+            <div class="source-chip source-chip-llm">LLM</div>
+          </div>
+          <div id="run-payloads" class="hidden"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/portal/static/run.js"></script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fortiedr-mcp"
+version = "0.1.0"
+description = "Read-only MCP server for FortiEDR incidents and host context."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "mcp>=1.0.0,<2.0.0",
+  "pydantic>=2.7.0,<3.0.0",
+  "python-dotenv>=1.0.0,<2.0.0",
+  "requests>=2.31.0,<3.0.0",
+  "starlette>=0.27.0,<2.0.0",
+  "uvicorn>=0.31.1,<1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0,<9.0.0",
+]
+
+[project.scripts]
+fortiedr-mcp = "fortiedr_mcp.server:main"
+fortiedr-analyze-incident = "fortiedr_mcp.analyze_incident:main"
+fortiedr-backend = "fortiedr_mcp.api.app:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+fortiedr_mcp = ["schemas/*.json", "data/*.json", "portal/*.html", "portal/*.js", "portal/*.css", "portal/*.svg", "portal/*.ico"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,283 @@
+{
+  "incident": {
+    "incident_id": 5440222,
+    "process": "cmd.exe",
+    "process_path": "C:\\Windows\\System32\\cmd.exe",
+    "process_type": "Executable",
+    "host": "WS-01",
+    "logged_user": "ACME\\alice",
+    "process_owner": "ACME\\alice",
+    "severity": "High",
+    "classification": "Suspicious",
+    "handling_state": "Unhandled",
+    "action": "Blocked",
+    "first_seen": "2026-04-10T12:00:00Z",
+    "last_seen": "2026-04-10T12:05:00Z",
+    "organization": "ExampleOrg",
+    "seen": false,
+    "archived": false,
+    "muted": false,
+    "threat_name": "Suspicious Command Execution",
+    "threat_family": "Unknown",
+    "collectors": [],
+    "destinations": [
+      "198.51.100.10"
+    ],
+    "rules": [
+      "Execution Prevention",
+      "Malicious File Detected"
+    ],
+    "raw": {
+      "eventId": 5440222,
+      "process": "cmd.exe",
+      "processPath": "C:\\Windows\\System32\\cmd.exe",
+      "severity": "High",
+      "classification": "Suspicious",
+      "action": "Blocked",
+      "loggedUsers": [
+        "ACME\\alice"
+      ],
+      "rules": [
+        "Execution Prevention",
+        "Malicious File Detected"
+      ]
+    }
+  },
+  "raw_data_item_count": 2,
+  "raw_data_items": [
+    {
+      "eventId": 5440222,
+      "rawEventId": 991,
+      "device": "WS-01",
+      "deviceIp": "10.0.0.5",
+      "destination": "198.51.100.10",
+      "firstSeen": "2026-04-10T12:00:00Z",
+      "lastSeen": "2026-04-10T12:05:00Z",
+      "count": 1,
+      "loggedUsers": [
+        "ACME\\alice"
+      ],
+      "AppDetails": {
+        "Executable": "C:\\Windows\\System32\\cmd.exe",
+        "CommandLine": "cmd.exe /c powershell.exe -noprofile -noninteractive .\\MyScript.ps1"
+      },
+      "Alerts": [
+        {
+          "Policy": "POD - Execution Prevention",
+          "MainApp": {
+            "Executable": "C:\\Windows\\System32\\cmd.exe",
+            "CommandLine": "cmd.exe /c powershell.exe -noprofile -noninteractive .\\MyScript.ps1"
+          }
+        }
+      ],
+      "StackInfos": [
+        {
+          "ProcessName": "C:\\Windows\\System32\\cmd.exe",
+          "CommonAdditionalInfo": [
+            {
+              "ProcessOwner": "ACME\\alice"
+            },
+            {
+              "CommandLine": "cmd.exe /c powershell.exe -noprofile -noninteractive .\\MyScript.ps1"
+            },
+            {
+              "FileHashMD5": "0AD99D6EE05634EF71FA11020ACCFFE6",
+              "FileHashSHA2": "5726B610B8DF672E55F1368D32327B9C93FBE4734C3DED8307A4B4D3B927B9B1"
+            }
+          ]
+        },
+        {
+          "ProcessName": "C:\\Windows\\explorer.exe",
+          "CommonAdditionalInfo": [
+            {
+              "ProcessOwner": "ACME\\alice"
+            }
+          ]
+        },
+        {
+          "ProcessName": "C:\\Windows\\System32\\winlogon.exe",
+          "CommonAdditionalInfo": [
+            {
+              "ProcessOwner": "NT AUTHORITY\\SYSTEM"
+            }
+          ]
+        }
+      ],
+      "remediateDevice": false
+    },
+    {
+      "eventId": 5440222,
+      "rawEventId": 992,
+      "device": "WS-01",
+      "deviceIp": "10.0.0.5",
+      "destination": "203.0.113.12",
+      "firstSeen": "2026-04-10T12:03:00Z",
+      "lastSeen": "2026-04-10T12:04:00Z",
+      "count": 1,
+      "loggedUsers": [
+        "ACME\\alice"
+      ],
+      "remediateDevice": false
+    }
+  ],
+  "host_context": {
+    "host": "WS-01",
+    "collector_count": 1,
+    "collectors": [
+      {
+        "collector_id": 321,
+        "name": "WS-01",
+        "collector_group_name": "Workstations",
+        "operating_system": "Windows 11 Pro",
+        "os_family": "Windows",
+        "ip_address": "10.0.0.5",
+        "state": "Running",
+        "version": "7.1.0",
+        "organization": "ExampleOrg",
+        "raw": {
+          "id": 321,
+          "name": "WS-01",
+          "state": "Running"
+        }
+      }
+    ],
+    "recent_incident_count": 2,
+    "recent_incidents": [
+      {
+        "incident_id": 5440222,
+        "process": "cmd.exe",
+        "process_path": "C:\\Windows\\System32\\cmd.exe",
+        "process_type": "Executable",
+        "host": "WS-01",
+        "logged_user": "ACME\\alice",
+        "process_owner": "ACME\\alice",
+        "severity": "High",
+        "classification": "Suspicious",
+        "handling_state": "Unhandled",
+        "action": "Blocked",
+        "first_seen": "2026-04-10T12:00:00Z",
+        "last_seen": "2026-04-10T12:05:00Z",
+        "organization": "ExampleOrg",
+        "seen": false,
+        "archived": false,
+        "muted": false,
+        "threat_name": "Suspicious Command Execution",
+        "threat_family": "Unknown",
+        "collectors": [],
+        "destinations": [
+          "198.51.100.10"
+        ],
+        "rules": [
+          "Execution Prevention"
+        ],
+        "raw": {}
+      },
+      {
+        "incident_id": 5440200,
+        "process": "powershell.exe",
+        "process_path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "process_type": "Executable",
+        "host": "WS-01",
+        "logged_user": "ACME\\alice",
+        "process_owner": "ACME\\alice",
+        "severity": "Medium",
+        "classification": "Suspicious",
+        "handling_state": "Unhandled",
+        "action": "Detected",
+        "first_seen": "2026-04-10T11:30:00Z",
+        "last_seen": "2026-04-10T11:35:00Z",
+        "organization": "ExampleOrg",
+        "seen": false,
+        "archived": false,
+        "muted": false,
+        "threat_name": "Script Execution",
+        "threat_family": "Unknown",
+        "collectors": [],
+        "destinations": [],
+        "rules": [
+          "Script Prevention"
+        ],
+        "raw": {}
+      }
+    ]
+  },
+  "related_events": {
+    "incident_id": 5440222,
+    "pivot_used": {
+      "host": "WS-01",
+      "process": "cmd.exe"
+    },
+    "related_count": 1,
+    "related_events": [
+      {
+        "incident_id": 5440200,
+        "process": "powershell.exe",
+        "process_path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "process_type": "Executable",
+        "host": "WS-01",
+        "logged_user": "ACME\\alice",
+        "process_owner": "ACME\\alice",
+        "severity": "Medium",
+        "classification": "Suspicious",
+        "handling_state": "Unhandled",
+        "action": "Detected",
+        "first_seen": "2026-04-10T11:30:00Z",
+        "last_seen": "2026-04-10T11:35:00Z",
+        "organization": "ExampleOrg",
+        "seen": false,
+        "archived": false,
+        "muted": false,
+        "threat_name": "Script Execution",
+        "threat_family": "Unknown",
+        "collectors": [],
+        "destinations": [],
+        "rules": [
+          "Script Prevention"
+        ],
+        "raw": {}
+      }
+    ]
+  },
+  "forensics_events": {
+    "incident_ids": [
+      5440222
+    ],
+    "event_ids": [],
+    "organization_id": 2792376,
+    "offset": 0,
+    "page_size": 10,
+    "selected_count": 1,
+    "aggregations_total_count": 1,
+    "selected_events": [
+      {
+        "incident_id": 5440222,
+        "event_id": 5440222,
+        "device": "WS-01",
+        "process": "cmd.exe",
+        "process_path": "C:\\Windows\\System32\\cmd.exe",
+        "process_path_unformatted": "\\Device\\HarddiskVolume3\\Windows\\System32\\cmd.exe",
+        "process_owner": "ACME\\alice",
+        "logged_users": [
+          "ACME\\alice"
+        ],
+        "severity": "High",
+        "classification": "Suspicious",
+        "handling_state": "Unhandled",
+        "certificate_status": "Unsigned",
+        "destinations": [
+          "File Execution Attempt"
+        ],
+        "process_script_module": "MyScript.ps1",
+        "process_script_module_path": "C:\\Users\\alice\\Downloads\\MyScript.ps1",
+        "host_state": "Running",
+        "threat_name": "Suspicious Command Execution",
+        "threat_family": "Unknown",
+        "threat_type": "Unknown",
+        "handling_tooltip": "FortiEDR blocked cmd.exe on WS-01 for ACME\\alice.",
+        "raw": {
+          "id": 5440222
+        }
+      }
+    ]
+  }
+}

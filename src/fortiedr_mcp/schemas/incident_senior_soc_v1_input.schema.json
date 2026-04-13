@@ -1,0 +1,508 @@
+{
+  "$defs": {
+    "CommandLineContext": {
+      "properties": {
+        "command_line": {
+          "title": "Command Line",
+          "type": "string"
+        },
+        "process_name": {
+          "title": "Process Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "process_name",
+        "command_line"
+      ],
+      "title": "CommandLineContext",
+      "type": "object"
+    },
+    "DerivedIncidentContext": {
+      "properties": {
+        "forensics_summary": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ForensicsSummary"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "launch_context_clues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Launch Context Clues",
+          "type": "array"
+        },
+        "matched_rule_descriptions": {
+          "items": {
+            "$ref": "#/$defs/RuleDescriptionContext"
+          },
+          "title": "Matched Rule Descriptions",
+          "type": "array"
+        },
+        "matched_rules": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Matched Rules",
+          "type": "array"
+        },
+        "process_stack": {
+          "items": {
+            "$ref": "#/$defs/ProcessStackEntry"
+          },
+          "title": "Process Stack",
+          "type": "array"
+        },
+        "relevant_command_lines": {
+          "items": {
+            "$ref": "#/$defs/CommandLineContext"
+          },
+          "title": "Relevant Command Lines",
+          "type": "array"
+        },
+        "violated_policies": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Violated Policies",
+          "type": "array"
+        }
+      },
+      "title": "DerivedIncidentContext",
+      "type": "object"
+    },
+    "EvidenceBackedValue": {
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceReference"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "title": "EvidenceBackedValue",
+      "type": "object"
+    },
+    "EvidenceReference": {
+      "properties": {
+        "evidence_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Stable evidence identifier from the analysis input catalog.",
+          "title": "Evidence Id"
+        },
+        "normalized_value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Normalized Value"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "tool": {
+          "title": "Tool",
+          "type": "string"
+        },
+        "value": {
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "tool",
+        "path"
+      ],
+      "title": "EvidenceReference",
+      "type": "object"
+    },
+    "ForensicsSummary": {
+      "properties": {
+        "certificate_status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Certificate Status"
+        },
+        "destinations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Destinations",
+          "type": "array"
+        },
+        "handling_tooltip": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Handling Tooltip"
+        },
+        "host_state": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Host State"
+        },
+        "process_owner": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Process Owner"
+        },
+        "process_script_module": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Process Script Module"
+        },
+        "process_script_module_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Process Script Module Path"
+        },
+        "selected_count": {
+          "default": 0,
+          "title": "Selected Count",
+          "type": "integer"
+        }
+      },
+      "title": "ForensicsSummary",
+      "type": "object"
+    },
+    "HashMetadata": {
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceReference"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "md5": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Md5"
+        },
+        "sha1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha1"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
+        }
+      },
+      "title": "HashMetadata",
+      "type": "object"
+    },
+    "KeyMetadata": {
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "classification": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "first_seen": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "hashes": {
+          "$ref": "#/$defs/HashMetadata"
+        },
+        "hostname": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "last_seen": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "process_name": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "process_path": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "severity": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        },
+        "user": {
+          "$ref": "#/$defs/EvidenceBackedValue"
+        }
+      },
+      "required": [
+        "hostname",
+        "user",
+        "process_name",
+        "process_path",
+        "hashes",
+        "severity",
+        "classification",
+        "first_seen",
+        "last_seen",
+        "action"
+      ],
+      "title": "KeyMetadata",
+      "type": "object"
+    },
+    "ProcessStackEntry": {
+      "properties": {
+        "command_line": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Command Line"
+        },
+        "highlighted": {
+          "default": false,
+          "title": "Highlighted",
+          "type": "boolean"
+        },
+        "process_name": {
+          "title": "Process Name",
+          "type": "string"
+        },
+        "process_owner": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Process Owner"
+        },
+        "process_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Process Path"
+        }
+      },
+      "required": [
+        "process_name"
+      ],
+      "title": "ProcessStackEntry",
+      "type": "object"
+    },
+    "RuleDescriptionContext": {
+      "properties": {
+        "forensics_recommendations": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Forensics Recommendations"
+        },
+        "policy_name": {
+          "title": "Policy Name",
+          "type": "string"
+        },
+        "rule_details": {
+          "title": "Rule Details",
+          "type": "string"
+        },
+        "rule_name": {
+          "title": "Rule Name",
+          "type": "string"
+        },
+        "source": {
+          "default": "FortiEDR_Security_Policies.txt",
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_name",
+        "rule_name",
+        "rule_details"
+      ],
+      "title": "RuleDescriptionContext",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "derived_context": {
+      "$ref": "#/$defs/DerivedIncidentContext"
+    },
+    "evidence_catalog": {
+      "items": {
+        "$ref": "#/$defs/EvidenceReference"
+      },
+      "title": "Evidence Catalog",
+      "type": "array"
+    },
+    "host_context": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Host Context"
+    },
+    "incident_id": {
+      "title": "Incident Id",
+      "type": "string"
+    },
+    "incident_snapshot": {
+      "additionalProperties": true,
+      "title": "Incident Snapshot",
+      "type": "object"
+    },
+    "key_metadata_candidates": {
+      "$ref": "#/$defs/KeyMetadata"
+    },
+    "missing_source_data": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Source Data",
+      "type": "array"
+    },
+    "raw_data_items": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Raw Data Items",
+      "type": "array"
+    },
+    "related_events": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Related Events"
+    },
+    "skill_version": {
+      "const": "incident_senior_soc_v1",
+      "title": "Skill Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "skill_version",
+    "incident_id",
+    "key_metadata_candidates",
+    "incident_snapshot"
+  ],
+  "title": "IncidentAnalysisInput",
+  "type": "object"
+}

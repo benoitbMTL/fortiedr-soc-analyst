@@ -1,0 +1,797 @@
+{
+  "version": 1,
+  "source": "FortiEDR_Security_Policies.txt",
+  "rules": [
+    {
+      "policy_name": "Application Control",
+      "rule_name": "Blocklist",
+      "rule_details": "An unauthorized application attempted to execute. Applications that are included in a blocklist that is attached to this policy are not permitted to run.",
+      "forensics_recommendations": "To authorize the application to run, remove it from the blocklist that is attached to this policy.",
+      "rule_subtitle": "Execution attempt of an application that is included in your blocklist"
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Badly Signed Linux Kernel Module",
+      "rule_details": "This rule verifies whether a kernel module is signed with a valid and trusted digital signature. It checks the package's cryptographic signature to ensure the kernel module has not been tampered with and originates from a legitimate source. If the signature is missing, invalid, expired, revoked, or signed by an untrusted issuer, the rule will trigger an alert.",
+      "forensics_recommendations": null,
+      "rule_subtitle": "Unsigned Kernel Module or Kernel Module with Malformed Signature Detected"
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Badly Signed Linux Package",
+      "rule_details": "This rule verifies whether a software package is signed with a valid and trusted digital signature. It checks the package's cryptographic signature to ensure the package has not been tampered with and originates from a legitimate source. If the signature is missing, invalid, expired, revoked, or signed by an untrusted issuer, the rule will trigger an alert.",
+      "forensics_recommendations": null,
+      "rule_subtitle": "Unsigned Package or Package with Malformed Signature Detected"
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Malicious File Detected",
+      "rule_details": "The file was identified as malicious by our machine-learning engine or by other means, based on analysis of the file.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device, based on its path. Use the Forensics tab to perform deeper analysis. Verify the origin of the file and its intended use in the organization",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "PUP Prevented",
+      "rule_details": "A program or an application that would be considered unwanted despite the fact a user may have given his consent to downloaded and install it. PUPs include spyware, adware, or toolbars etc.",
+      "forensics_recommendations": "If this is the only rule that was triggered, retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. If more rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Potentially Unwanted Program Prevented"
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Privilege Escalation Exploit Detected",
+      "rule_details": "Privilege escalation exploit was detected. Such exploits are normally used by attackers to gain full control of a breached device as part of an exploit chain, server take over or lateral movement. This, in turn, can result in token stealing.",
+      "forensics_recommendations": "This type of breach can normally be inferred by checking the context of the alert. If the process or one of its parents is a browser or office document, this is likely part of an exploit chain. If the process is a command line interpreter or powershell, it is likely part of a lateral movement or a server takeover attempt",
+      "rule_subtitle": "A malicious escalation of privileges was detected"
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Sandbox Analysis",
+      "rule_details": "A suspicious file was sent to the sandbox for analysis and inspection. After the analysis completes, the file will either be classified as malicious, in which case its future executions will be blocked, or it will be classified as benign, in which case its execution will continue.",
+      "forensics_recommendations": "Check the event classification. If cloud classification was not set, sandbox analysis has not yet completed. If the file is malicious, the sandbox analysis determined that it was malicious. In this case, its future execution will be blocked by the Execution Prevention rules. To skip sandbox analysis, set an exception.",
+      "rule_subtitle": "File was sent to the sandbox for analysis"
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Stack Pivot",
+      "rule_details": "Each thread in the operating system has a stack. Each thread's stack has a well-defined address space allocated to it. Malware may alter the stack pointer and make it point out of these bounds. Stack pointer alteration is performed as part of an exploitation stage or to circumvent protection software that relies on stack tracing. Executable stacks are rare and exist in old applications or aggressive application protectors.",
+      "forensics_recommendations": "If this is the only rule that was violated, retrieve the entire process memory from the Forensics Tab for deeper analysis. If other rules were triggered, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Stack Pointer is Out of Bounds"
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Suspicious Driver Load",
+      "rule_details": "An attempt to load a driver containing suspicious file characteristics into the operating system kernel was detected. Such activity is usually detected when a malicious entity attempts to load a rootkit to the operating system kernel, in order to gain total control over the system.",
+      "forensics_recommendations": "Retrieve the driver file from the targeted device based on its path. Use the Forensics tab to perform deeper analysis. Verify the origin of the driver file and its intended use in the organization",
+      "rule_subtitle": "Attempt to load a suspicious driver"
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Suspicious File Detected",
+      "rule_details": "This file contains suspicious characteristics commonly used by malware, and was identified by our machine-learning engine as potentially malicious.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device, based on its path. Use the Forensics tab to perform deeper analysis. Verify the origin of the file and its intended use in the organization",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Suspicious Script Execution",
+      "rule_details": "A script was executed by a suspicious process. Attackers use this technique to achieve remote access to the device while remaining stealthy.",
+      "forensics_recommendations": "Inspect the process command-line data to understand the context of the script execution",
+      "rule_subtitle": "A script was executed in a suspicious context"
+    },
+    {
+      "policy_name": "Execution Prevention",
+      "rule_name": "Unconfirmed File Detected",
+      "rule_details": "This file contains a few characteristics commonly used by malware, and was identified by our machine-learning engine as potentially malicious.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device based on its path. Use the Forensics tab to perform deeper analysis. Verify the origin of the file and its intended use in the organization",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Access to Critical System Information",
+      "rule_details": "A process attempted to access credentials, passwords or other critical information in a suspicious manner. This rule may have been triggered by a malicious process or by a user attempting to get higher credentials for lateral movement or to elevate privileges.",
+      "forensics_recommendations": "If this is the only rule that was triggered, it is possible that the user manually attempted to gain access to credentials. It could also be an action taken by a malicious user over an RDP connection. To mitigate the attack, isolate the machine and disable the user in the domain, if possible. If more rules were violated, follow the forensic recommendations of the other rules",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Debugged Process",
+      "rule_details": "A process that is being debugged was identified. Malware may use self-debugging techniques to make reverse engineering more difficult. This rule may also be triggered when a legitimate user debugs a system process that connects externally.",
+      "forensics_recommendations": "Verify that the user of the device did not run a debugger when the event was triggered.",
+      "rule_subtitle": "Connection from a Debugged Process"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Dynamic Code",
+      "rule_details": "The origin of most of the process' code comes from a file. However, it is possible to generate code in runtime with no corresponding file. It is extremely hard to identify runtime generated code as malicious. As such this kind of code is commonly used by malware and exploits to run their payload.",
+      "forensics_recommendations": "Go to the Forensics Tab. Get the Base Address and End Address as specified in the relevant stack entry. Retrieve the memory from the targeted device according to these memory addresses by using the Forensics Tab and perform a deeper analysis.",
+      "rule_subtitle": "Malicious Runtime Generated Code Detected"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Executable Format",
+      "rule_details": "Each executable file in the operating system has a well-defined file format. One or more of the executable files seems to have an invalid or suspicious structure. Bad format may also exist in very aggressive application protectors.",
+      "forensics_recommendations": "If this is the only rule that was violated, retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. Use executable file analysis tools, such as CFFExplorer with the information provided in the relevant stack entry to gain a better understanding of the format violation.",
+      "rule_subtitle": "Bad Executable File Format"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Executable Stack",
+      "rule_details": "The stack of the application appears to contain executable code. Attackers commonly make the stack executable during the exploitation stage in order to run code from the application's stack. Executable stacks are rare and exist in old applications or aggressive application protectors.",
+      "forensics_recommendations": "If this is the only rule that was violated, retrieve the entire process memory from the Forensics Tab for deeper analysis. If other rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "A Stack with Executable Code"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Executed Program has no installer",
+      "rule_details": "An application was executed and it has no installer. Attackers drop their executables without legitimate installer.",
+      "forensics_recommendations": "Retrieve the executable file of the parent process from the targeted device according to its Path by using the Forensic Tab. Verify whether it is a legitimate application or not.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Fake Critical Program",
+      "rule_details": "Many malware try to hide by looking like a critical system process, such as a service. This alert is a very strong indicator of malicious activity as it is rare for a legitimate software to do this.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis.",
+      "rule_subtitle": "Program Attempted to Hide as a Service"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Fake Packer",
+      "rule_details": "A packer is a software component used primarily to reduce executable file sizes. Packers are commonly used by malware, software installers and software protection applications. Malware, however, often tries to disguise itself as a common packer in order to avoid detection by anti-virus software.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. If the process dropped files, collect these as well.",
+      "rule_subtitle": "A Fake Known Packer Detected"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Hidden Process",
+      "rule_details": "A connection attempt was detected from a process that was not visible to the operating system. Such a process is commonly created by malware to hide itself. Such techniques are also used by some security products on 32-bit devices.",
+      "forensics_recommendations": "Use kernel forensics tools with the ability to detect hidden processes such as GMER.",
+      "rule_subtitle": "Connection Attempt from a Hidden Process"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Injected Executable",
+      "rule_details": "Executable injection is commonly used by malware to hide/run in benign applications. This technique is very common to allow malware to steal information from a running application and to exfiltrate data. This technique is also used by some security products and potentially unwanted software.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis.",
+      "rule_subtitle": "Connection Attempt from an Injected Executable"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Injected Process",
+      "rule_details": "The process was created by a thread that was previously injected into a legitimate application. Attackers typically do this to make the new process appear valid by launching it from a legitimate application.",
+      "forensics_recommendations": "Retrieve the entire process memory from the Forensics Tab, for both the parent process and the injected one. Use these to perform a deeper analysis.",
+      "rule_subtitle": "Process Created from an Injected Thread"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Injected Thread",
+      "rule_details": "A thread that was injected into the application tried to establish a connection from the injected application. Attackers typically do this in order to deceive the system into believing that a legitimate application is trying to connect when the actual initiator of the connection is a completely different application.",
+      "forensics_recommendations": "Retrieve the entire process memory from the Forensics Tab, for both the parent process and the injected one. Use these to perform a deeper analysis.",
+      "rule_subtitle": "Connection from an Injected Thread"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Invalid Checksum",
+      "rule_details": "Each executable file in the system has a checksum associated with it. In this case the checksum was incorrect. Malware many times manipulate other files in order to propagate itself, such as installers, system files, etc. Such manipulation changes the checksum of the file and may indicate that it was tampered with. Invalid checksum rarely occurs on legitimate software that wasn't compiled or updated properly.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis.",
+      "rule_subtitle": "Connection Attempt from Application with Invalid Checksum"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Invalid Execution",
+      "rule_details": "Each executable file has pre-defined executable sections with well-defined boundaries. However, it is possible to make unexecutable sections executable in runtime, effectively generating new code. This kind of modification is commonly used by malware to evade analysis by anti-virus and other security products. By default, such executables are not allowed to communicate.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its path using the Forensics tab. If the application is not legitimate or you are not familiar with the tool, then remediate the device.",
+      "rule_subtitle": "Code Executed from an Invalid Memory Location"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Invalid Pointer",
+      "rule_details": "An invalid stack pointer was detected. Malware may alter the stack pointer to point to invalid memory in order to prevent stack tracing or as part of an exploitation attempt.",
+      "forensics_recommendations": "If this is the only rule that was violated, retrieve the entire process memory from the Forensics Tab for deeper analysis. If other rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Invalid Stack Pointer Value"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Kernel Injection",
+      "rule_details": "Injecting code from the kernel to user processes is an advanced technique commonly used by kernel malware (such as Rootkits, Bootkits, Bios Infectors and so on). Basically, it enables malware to run code in any process in the system. Kernel Injection is also used by some security products, such as anti-viruses.",
+      "forensics_recommendations": "If the injected executable is known, get it for deeper analysis. If the driver is known, get the driver from the targeted device for deeper analysis. Unknown Driver: Use tools, such as Volatility, to take s full memory dump of the system and analyze the specified kernel routine and specified user routine.",
+      "rule_subtitle": "Code Injected from Kernel to User Mode"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Keylogging Activity Detected",
+      "rule_details": "A process attempted to record keystrokes or mouse activity in a suspicious manner. Malware may record user’s keystrokes in order to acquire credentials or other critical information. Retrieve the executable file from the targeted device according to its path using the Forensics tab. If the application is not legitimate or you are not familiar with the tool, then remediate the device.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its path using the Forensics tab. If the application is not legitimate or you are not familiar with the tool, then remediate the device.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Known Packer",
+      "rule_details": "A packer is a software component used primarily to reduce executable file sizes. Packers are commonly used by malware, software installers and software protection applications. Malware, however, often tries to disguise itself as a common packer to avoid detection by anti-virus software.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. If the process dropped files, then collect these as well.",
+      "rule_subtitle": "Activity by an Application packed by a Known Packer was detected"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Malicious File Detected",
+      "rule_details": "The file was identified as malicious by our machine-learning engine or by other means, based on analysis of the file.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device, based on its path. Use the Forensics tab to perform deeper analysis. Verify the origin of the file and its intended use in the organization",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Malicious Process",
+      "rule_details": "A process tried to maliciously intervene with Collector's component or configuration.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis.",
+      "rule_subtitle": "A Process is Interfering with Collector's Operation"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Malicious Website Detected",
+      "rule_details": "A website, domain or IP address was identified as malicious by FortiGuard Labs' intelligence service or other means. Malicious or hacked websites are a primary vector for initiating attacks and can trigger downloads of malware, spyware or other risky content.",
+      "forensics_recommendations": "Examine the event graph and retrace the process that initiated the website access in order to learn whether it is part of a suspicious program, a phishing attempt or an unsafe web-browsing attempt. Based on your conclusion, follow up with remediation actions, such as deleting related programs or remediating other targeted devices.",
+      "rule_subtitle": "Attempt to access a malicious website, domain or IP address"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Modified Executable",
+      "rule_details": "Each executable loaded in process memory can be modified during runtime. However, some parts of the executable, such as code and file-format data, are expected to remain constant throughout the lifetime of the process. Modification to these sections may indicate malicious behavior, such as unpacking or an in-memory patch.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab. If the modified executable is a system executable, it may indicate that the malicious code modified it. If this is the case, retrieve the entire process memory by using the Forensics Tab.",
+      "rule_subtitle": "Connection from an In-Memory Modified Executable"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Network Scanning Attempt Detected",
+      "rule_details": "Network service scans were detected. Malware may use a network scan for listing services that are running on remote hosts, as part of the network reconnaissance that is performed while preparing for lateral movement.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its path using the Forensics tab. If it is not a known scanning tool, remediate the device. Otherwise, verify that the activity was performed by an authorized user.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Non",
+      "rule_details": "Use of a non-standard communication method was detected. This can be leveraged by attackers to exfiltrate data stealthfully.",
+      "forensics_recommendations": "If only this rule was triggered, retrieve the executable file from the targeted device that established this connection, based on its path. Then, use the Forensics tab to perform deeper analysis. If more rules were triggered, act in accordance with the other rules.",
+      "rule_subtitle": "standard Communication - Use of non-standard communication method detected"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "PUP",
+      "rule_details": "A program or an application that would be considered unwanted despite the fact a user may have given his consent to downloaded and install it. PUPs include spyware, adware or toolbars etc.",
+      "forensics_recommendations": "If this is the only rule that was triggered, retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. If more rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Potentially Unwanted Program"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Partially Mapped",
+      "rule_details": "Whenever a process loads a new executable to memory, the executable is mapped according to its file-format. When an executable is mapped to the process with the intent to execute, it is fully mapped to the process memory. However, it is possible to only map a certain part of an executable into memory and execute it. Such action is always the result of malicious behavior. This alert may also be triggered if a rootkit (or invasive security product) tries to hide its executables.",
+      "forensics_recommendations": "Retrieve the memory of the executable from the targeted device according to the Base address and End address indicated in the relevant stack entry by using the Forensics Tab.",
+      "rule_subtitle": "Partially Mapped Executable File on Stack"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Privilege Escalation Exploit Detected",
+      "rule_details": "Privilege escalation exploit was detected. Such exploits are normally used by attackers to gain full control of a breached device as part of an exploit chain, server take over or lateral movement. This, in turn, can result in token stealing.",
+      "forensics_recommendations": "This type of breach can normally be inferred by checking the context of the alert. If the process or one of its parents is a browser or office document, this is likely part of an exploit chain. If the process is a command line interpreter or powershell, it is likely part of a lateral movement or a server takeover attempt",
+      "rule_subtitle": "A malicious escalation of privileges was detected"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Process Hollowing",
+      "rule_details": "Process Hollowing is a technique used by malware to masquerade as a legitimate process by stripping the original process from its code and replacing it with malicious payload. Attackers find this technique very efficient as the process will appear to be valid, and even signed, when examined.",
+      "forensics_recommendations": "Retrieve the executable file of the parent process from the targeted device according to its Path by using the Forensic Tab. In addition, retrieve a full executable file memory of the process for deeper analysis.",
+      "rule_subtitle": "Process Code Was Replaced"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Process Injection",
+      "rule_details": "Process injection is a technique used by malware to masquerade as a legitimate process, in which the execution flow of the process is changed to run malicious code. This technique is very efficient for hackers, as the process appears to be valid, and is even signed when examined. Retrieve the executable file of the parent process from the targeted device according to its path using the Forensic Tab. In addition, retrieve a full executable file memory of the process for deeper analysis.",
+      "forensics_recommendations": "Retrieve the executable file of the parent process from the targeted device according to its path using the Forensic Tab. In addition, retrieve a full executable file memory of the process for deeper analysis.",
+      "rule_subtitle": "Entry Point Modification Detected"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Protected System Configuration",
+      "rule_details": "A process attempted to modify the settings of important collection logs or other protected configurations. Such logs are essential for identifying malicious activity and for providing the context and details of actions taken by attackers. This rule may have been triggered by a malicious process that attempted to cover its tracks.",
+      "forensics_recommendations": "It is possible that a user manually attempted to modify system settings. Use the Forensics tab to retrieve the executable file from the targeted device according to its path in order to examine it. To remediate, restore the modified configuration to its original value on the device. If more rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Modification Attempt of Protected Configuration"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Stack Pivot",
+      "rule_details": "Each thread in the operating system has a stack. Each thread's stack has a well-defined address space allocated to it. Malware may alter the stack pointer and make it point out of these bounds. Stack pointer alteration is performed as part of an exploitation stage or to circumvent protection software that relies on stack tracing. Executable stacks are rare and exist in old applications or aggressive application protectors.",
+      "forensics_recommendations": "If this is the only rule that was violated, retrieve the entire process memory from the Forensics Tab for deeper analysis. If other rules were triggered, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Stack Pointer is Out of Bounds"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Stack Tampering",
+      "rule_details": "Each thread in the operating system has a stack. The thread's stack was tampered with. Malware may do this to prevent the collection of a full stack.",
+      "forensics_recommendations": "Retrieve the entire target process memory from the Forensics Tab for deeper analysis.",
+      "rule_subtitle": "Stack Collection Interrupted"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Suspicious Application",
+      "rule_details": "Some applications do not initiate connections to the network on their own, but are still commonly used by threat-actors to ex-filtrate data from the network. Communication from such applications is blocked by default.",
+      "forensics_recommendations": null,
+      "rule_subtitle": "Connection Attempt from a Suspicious Application"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Suspicious Macro",
+      "rule_details": "A macro that is part of another application (e.g Microsoft Office) tried to establish a connection. Attackers typically embed macros in documents in attempt to entice user into activating their malicious code.",
+      "forensics_recommendations": "If the process command-line data includes the applications file type (e.g. XYZ.doc) it is advised to verify with the user that he intended to execute a macro.",
+      "rule_subtitle": "A macro has performed suspicious actions"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Suspicious Packer",
+      "rule_details": "A packer is a software component mainly used to reduce executable file sizes. Packers are commonly used by malware, software installers and software protection applications. Malware, however, often tries to disguise itself as a common packer to avoid detection by anti-virus software.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. If the process dropped files, then collect these as well. Note: Some protected software also uses suspicious packers and may trigger this rule.",
+      "rule_subtitle": "Activity by an Application packed by a Suspicious Packer was detected"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Suspicious Script Execution",
+      "rule_details": "A script was executed by a suspicious process. Attackers use this technique to achieve remote access to the device while remaining stealthy.",
+      "forensics_recommendations": "Inspect the process command-line data to understand the context of the script execution",
+      "rule_subtitle": "A script was executed in a suspicious context"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Tampered Executable",
+      "rule_details": "An executable that is critical to Collector's operation or the operating system operation was tampered in some way. Critical executables may include Collector executables, networking related executables and so on. Such behavior is only from a malware.",
+      "forensics_recommendations": "Retrieve the entire process memory by using the Forensics Tab according to the virtual address for deeper analysis. It is generally easier to start with the tampered executable.",
+      "rule_subtitle": "Critical Executable was Tampered With"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Unconfirmed Executable",
+      "rule_details": "Each executable file in the operating system has a well-defined file format. This file format has many fields that the operating system does not enforce, but may be used by malware to complicate its analysis. This rule's severity is Medium because this may also indicate an unwanted program, an application protector or simply an application that was improperly compiled.",
+      "forensics_recommendations": "If this is the only rule that was triggered, retrieve the executable file from the targeted device according to its Path by using the Forensics Tab. If more rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Executable File Failed Verification Test"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Unmapped Executable",
+      "rule_details": "An executable running in memory does not have a corresponding file in the file system. Malware can therefore hide in process memory without being listed by the operating system. Commonly, this technique is used by both Advanced Persistent Threat (APT) and Volatile Persistent Threat (VPT). It may also be used by application installers or very aggressive application protectors, though this scenario is rare.",
+      "forensics_recommendations": "Go to the Forensics Tab. Get the Base Address and End Address, as specified in the relevant stack entry. Retrieve the memory from the targeted device according to these memory addresses by using the Forensics Tab and perform a deeper analysis.",
+      "rule_subtitle": "Executable File Without a Corresponding File System Reference"
+    },
+    {
+      "policy_name": "Exfiltration Prevention",
+      "rule_name": "Writable Code",
+      "rule_details": "Each executable file has pre-defined executable sections. Normally, these sections are read-only and cannot be modified unless protection attributes are explicitly modified in runtime. Such an action is normally an indication of tampering with executable code in runtime. This kind of action is common in malware and exploits that try to modify code of in-memory executables.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab. If the modified executable is a system executable, it may indicate that the malicious code modified it. If this is the case, retrieve the entire process memory by using the Forensics Tab.",
+      "rule_subtitle": "Identified an Executable with Writable Code"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Debugged Process",
+      "rule_details": "A process that is being debugged was identified. Malware may use self-debugging techniques to make reverse engineering more difficult. This rule may also be triggered when a legitimate user debugs a system process that connects externally.",
+      "forensics_recommendations": "Verify that the user of the device did not run a debugger when the event was triggered.",
+      "rule_subtitle": "Connection from a Debugged Process"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Disk encryption attempt detected",
+      "rule_details": "Full disk encryption is designed to secure data by encrypting entire volumes so that the data cannot be read without successful authentication. In some cases, it is built into the operating system. For example, in Windows 10 where it is known as BitLocker. Ransomware may use built-in encryption capabilities to lock a drive while replacing recovery keys. This rule may also be triggered when legitimate full disk encryption takes place..",
+      "forensics_recommendations": "If full disk encryption is part of your organization's policy, you can disable this rule temporarily and then re-enable it after configuring initial settings to prevent an attacker from tampering or overriding BitLocker settings. You can also do this if full disk encryption is already enabled on this device or if it is only performed once on new machines. Otherwise, if you do not use bitlocker - retrieve the executable file from the targeted device according to its path by using the Forensics tab to perform more in-depth analysis.",
+      "rule_subtitle": "Suspicious full disk encryption was detected"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Dynamic Code",
+      "rule_details": "The origin of most of the process' code comes from a file. However, it is possible to generate code in runtime with no corresponding file. It is extremely hard to identify runtime generated code as malicious. As such this kind of code is commonly used by malware and exploits to run their payload.",
+      "forensics_recommendations": "Go to the Forensics Tab. Get the Base Address and End Address as specified in the relevant stack entry. Retrieve the memory from the targeted device according to these memory addresses by using the Forensics Tab and perform a deeper analysis.",
+      "rule_subtitle": "Malicious Runtime Generated Code Detected"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Executable Format",
+      "rule_details": "Each executable file in the operating system has a well-defined file format. One or more of the executable files seems to have an invalid or suspicious structure. Bad format may also exist in very aggressive application protectors.",
+      "forensics_recommendations": "If this is the only rule that was violated, retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. Use executable file analysis tools, such as CFFExplorer with the information provided in the relevant stack entry to gain a better understanding of the format violation.",
+      "rule_subtitle": "Bad Executable File Format"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Executable Stack",
+      "rule_details": "The stack of the application appears to contain executable code. Attackers commonly make the stack executable during the exploitation stage in order to run code from the application's stack. Executable stacks are rare and exist in old applications or aggressive application protectors.",
+      "forensics_recommendations": "If this is the only rule that was violated, retrieve the entire process memory from the Forensics Tab for deeper analysis. If other rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "A Stack with Executable Code"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Executed Program has no installer",
+      "rule_details": "An application was executed and it has no installer. Attackers drop their executables without legitimate installer.",
+      "forensics_recommendations": "Retrieve the executable file of the parent process from the targeted device according to its Path by using the Forensic Tab. Verify whether it is a legitimate application or not.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Fake Critical Program",
+      "rule_details": "Many malware try to hide by looking like a critical system process, such as a service. This alert is a very strong indicator of malicious activity as it is rare for a legitimate software to do this.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis.",
+      "rule_subtitle": "Program Attempted to Hide as a Service"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Fake Packer",
+      "rule_details": "A packer is a software component used primarily to reduce executable file sizes. Packers are commonly used by malware, software installers and software protection applications. Malware, however, often tries to disguise itself as a common packer in order to avoid detection by anti-virus software.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. If the process dropped files, collect these as well.",
+      "rule_subtitle": "A Fake Known Packer Detected"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "File Encryptor",
+      "rule_details": "A process tried to encrypt files or to make suspicious modifications to files.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. In addition, Retrieve the file that was encrypted and check whether it should have been modified. If more rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Suspicious file modification"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Hidden Process",
+      "rule_details": "A connection attempt was detected from a process that was not visible to the operating system. Such a process is commonly created by malware to hide itself. Such techniques are also used by some security products on 32-bit devices.",
+      "forensics_recommendations": "Use kernel forensics tools with the ability to detect hidden processes such as GMER.",
+      "rule_subtitle": "Connection Attempt from a Hidden Process"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Injected Executable",
+      "rule_details": "Executable injection is commonly used by malware to hide/run in benign applications. This technique is very common to allow malware to steal information from a running application and to exfiltrate data. This technique is also used by some security products and potentially unwanted software.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis.",
+      "rule_subtitle": "Connection Attempt from an Injected Executable"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Injected Process",
+      "rule_details": "The process was created by a thread that was previously injected into a legitimate application. Attackers typically do this to make the new process appear valid by launching it from a legitimate application.",
+      "forensics_recommendations": "Retrieve the entire process memory from the Forensics Tab, for both the parent process and the injected one. Use these to perform a deeper analysis.",
+      "rule_subtitle": "Process Created from an Injected Thread"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Injected Thread",
+      "rule_details": "A thread that was injected into the application tried to establish a connection from the injected application. Attackers typically do this in order to deceive the system into believing that a legitimate application is trying to connect when the actual initiator of the connection is a completely different application.",
+      "forensics_recommendations": "Retrieve the entire process memory from the Forensics Tab, for both the parent process and the injected one. Use these to perform a deeper analysis.",
+      "rule_subtitle": "Connection from an Injected Thread"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Invalid Checksum",
+      "rule_details": "Each executable file in the system has a checksum associated with it. In this case the checksum was incorrect. Malware many times manipulate other files in order to propagate itself, such as installers, system files, etc. Such manipulation changes the checksum of the file and may indicate that it was tampered with. Invalid checksum rarely occurs on legitimate software that wasn't compiled or updated properly.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis.",
+      "rule_subtitle": "Connection Attempt from Application with Invalid Checksum"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Invalid Execution",
+      "rule_details": "Each executable file has pre-defined executable sections with well-defined boundaries. However, it is possible to make unexecutable sections executable in runtime, effectively generating new code. This kind of modification is commonly used by malware to evade analysis by anti-virus and other security products. By default, such executables are not allowed to communicate.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its path using the Forensics tab. If the application is not legitimate or you are not familiar with the tool, then remediate the device.",
+      "rule_subtitle": "Code Executed from an Invalid Memory Location"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Invalid Pointer",
+      "rule_details": "An invalid stack pointer was detected. Malware may alter the stack pointer to point to invalid memory in order to prevent stack tracing or as part of an exploitation attempt.",
+      "forensics_recommendations": "If this is the only rule that was violated, retrieve the entire process memory from the Forensics Tab for deeper analysis. If other rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Invalid Stack Pointer Value"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Kernel Injection",
+      "rule_details": "Injecting code from the kernel to user processes is an advanced technique commonly used by kernel malware (such as Rootkits, Bootkits, Bios Infectors and so on). Basically, it enables malware to run code in any process in the system. Kernel Injection is also used by some security products, such as anti-viruses.",
+      "forensics_recommendations": "If the injected executable is known, get it for deeper analysis. If the driver is known, get the driver from the targeted device for deeper analysis. Unknown Driver: Use tools, such as Volatility, to take s full memory dump of the system and analyze the specified kernel routine and specified user routine.",
+      "rule_subtitle": "Code Injected from Kernel to User Mode"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Known Packer",
+      "rule_details": "A packer is a software component used primarily to reduce executable file sizes. Packers are commonly used by malware, software installers and software protection applications. Malware, however, often tries to disguise itself as a common packer to avoid detection by anti-virus software.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. If the process dropped files, then collect these as well.",
+      "rule_subtitle": "Activity by an Application packed by a Known Packer was detected"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Malicious File Detected",
+      "rule_details": "The file was identified as malicious by our machine-learning engine or by other means, based on analysis of the file.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device, based on its path. Use the Forensics tab to perform deeper analysis. Verify the origin of the file and its intended use in the organization",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Malicious Process",
+      "rule_details": "A process tried to maliciously intervene with Collector's component or configuration.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis.",
+      "rule_subtitle": "A Process is Interfering with Collector's Operation"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Modified Executable",
+      "rule_details": "Each executable loaded in process memory can be modified during runtime. However, some parts of the executable, such as code and file-format data, are expected to remain constant throughout the lifetime of the process. Modification to these sections may indicate malicious behavior, such as unpacking or an in-memory patch.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab. If the modified executable is a system executable, it may indicate that the malicious code modified it. If this is the case, retrieve the entire process memory by using the Forensics Tab.",
+      "rule_subtitle": "Connection from an In-Memory Modified Executable"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "PUP",
+      "rule_details": "A program or an application that would be considered unwanted despite the fact a user may have given his consent to downloaded and install it. PUPs include spyware, adware or toolbars etc.",
+      "forensics_recommendations": "If this is the only rule that was triggered, retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. If more rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Potentially Unwanted Program"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Partially Mapped",
+      "rule_details": "Whenever a process loads a new executable to memory, the executable is mapped according to its file-format. When an executable is mapped to the process with the intent to execute, it is fully mapped to the process memory. However, it is possible to only map a certain part of an executable into memory and execute it. Such action is always the result of malicious behavior. This alert may also be triggered if a rootkit (or invasive security product) tries to hide its executables.",
+      "forensics_recommendations": "Retrieve the memory of the executable from the targeted device according to the Base address and End address indicated in the relevant stack entry by using the Forensics Tab.",
+      "rule_subtitle": "Partially Mapped Executable File on Stack"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Privilege Escalation Exploit Detected",
+      "rule_details": "Privilege escalation exploit was detected. Such exploits are normally used by attackers to gain full control of a breached device as part of an exploit chain, server take over or lateral movement. This, in turn, can result in token stealing.",
+      "forensics_recommendations": "This type of breach can normally be inferred by checking the context of the alert. If the process or one of its parents is a browser or office document, this is likely part of an exploit chain. If the process is a command line interpreter or powershell, it is likely part of a lateral movement or a server takeover attempt",
+      "rule_subtitle": "A malicious escalation of privileges was detected"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Process Hollowing",
+      "rule_details": "Process Hollowing is a technique used by malware to masquerade as a legitimate process by stripping the original process from its code and replacing it with malicious payload. Attackers find this technique very efficient as the process will appear to be valid, and even signed, when examined.",
+      "forensics_recommendations": "Retrieve the executable file of the parent process from the targeted device according to its Path by using the Forensic Tab. In addition, retrieve a full executable file memory of the process for deeper analysis.",
+      "rule_subtitle": "Process Code Was Replaced"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Process Injection",
+      "rule_details": "Process injection is a technique used by malware to masquerade as a legitimate process, in which the execution flow of the process is changed to run malicious code. This technique is very efficient for hackers, as the process appears to be valid, and is even signed when examined. Retrieve the executable file of the parent process from the targeted device according to its path using the Forensic Tab. In addition, retrieve a full executable file memory of the process for deeper analysis.",
+      "forensics_recommendations": "Retrieve the executable file of the parent process from the targeted device according to its path using the Forensic Tab. In addition, retrieve a full executable file memory of the process for deeper analysis.",
+      "rule_subtitle": "Entry Point Modification Detected"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Stack Pivot",
+      "rule_details": "Each thread in the operating system has a stack. Each thread's stack has a well-defined address space allocated to it. Malware may alter the stack pointer and make it point out of these bounds. Stack pointer alteration is performed as part of an exploitation stage or to circumvent protection software that relies on stack tracing. Executable stacks are rare and exist in old applications or aggressive application protectors.",
+      "forensics_recommendations": "If this is the only rule that was violated, retrieve the entire process memory from the Forensics Tab for deeper analysis. If other rules were triggered, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Stack Pointer is Out of Bounds"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Stack Tampering",
+      "rule_details": "Each thread in the operating system has a stack. The thread's stack was tampered with. Malware may do this to prevent the collection of a full stack.",
+      "forensics_recommendations": "Retrieve the entire target process memory from the Forensics Tab for deeper analysis.",
+      "rule_subtitle": "Stack Collection Interrupted"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Suspicious Application",
+      "rule_details": "Some applications do not initiate connections to the network on their own, but are still commonly used by threat-actors to ex-filtrate data from the network. Communication from such applications is blocked by default.",
+      "forensics_recommendations": null,
+      "rule_subtitle": "Connection Attempt from a Suspicious Application"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Suspicious Packer",
+      "rule_details": "A packer is a software component mainly used to reduce executable file sizes. Packers are commonly used by malware, software installers and software protection applications. Malware, however, often tries to disguise itself as a common packer to avoid detection by anti-virus software.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab in order to perform deeper analysis. If the process dropped files, then collect these as well. Note: Some protected software also uses suspicious packers and may trigger this rule.",
+      "rule_subtitle": "Activity by an Application packed by a Suspicious Packer was detected"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Tampered Executable",
+      "rule_details": "An executable that is critical to Collector's operation or the operating system operation was tampered in some way. Critical executables may include Collector executables, networking related executables and so on. Such behavior is only from a malware.",
+      "forensics_recommendations": "Retrieve the entire process memory by using the Forensics Tab according to the virtual address for deeper analysis. It is generally easier to start with the tampered executable.",
+      "rule_subtitle": "Critical Executable was Tampered With"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Unconfirmed Executable",
+      "rule_details": "Each executable file in the operating system has a well-defined file format. This file format has many fields that the operating system does not enforce, but may be used by malware to complicate its analysis. This rule's severity is Medium because this may also indicate an unwanted program, an application protector or simply an application that was improperly compiled.",
+      "forensics_recommendations": "If this is the only rule that was triggered, retrieve the executable file from the targeted device according to its Path by using the Forensics Tab. If more rules were violated, first follow the forensic recommendations for the other rules.",
+      "rule_subtitle": "Executable File Failed Verification Test"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Unmapped Executable",
+      "rule_details": "An executable running in memory does not have a corresponding file in the file system. Malware can therefore hide in process memory without being listed by the operating system. Commonly, this technique is used by both Advanced Persistent Threat (APT) and Volatile Persistent Threat (VPT). It may also be used by application installers or very aggressive application protectors, though this scenario is rare.",
+      "forensics_recommendations": "Go to the Forensics Tab. Get the Base Address and End Address, as specified in the relevant stack entry. Retrieve the memory from the targeted device according to these memory addresses by using the Forensics Tab and perform a deeper analysis.",
+      "rule_subtitle": "Executable File Without a Corresponding File System Reference"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Writable Code",
+      "rule_details": "Each executable file has pre-defined executable sections. Normally, these sections are read-only and cannot be modified unless protection attributes are explicitly modified in runtime. Such an action is normally an indication of tampering with executable code in runtime. This kind of action is common in malware and exploits that try to modify code of in-memory executables.",
+      "forensics_recommendations": "Retrieve the executable file from the targeted device according to its Path by using the Forensics Tab. If the modified executable is a system executable, it may indicate that the malicious code modified it. If this is the case, retrieve the entire process memory by using the Forensics Tab. POLICY: eXtended Detection",
+      "rule_subtitle": "Identified an Executable with Writable Code"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Suspicious activity Detected",
+      "rule_details": "Suspicious activity was identified as malicious. This was determined based on data collection and correlation across multiple security products, as well as by our data enrichment and AI-based analysis.",
+      "forensics_recommendations": "Inspect activity signals in order to identify the purpose and origin of the activity. If the activity is found to be malicious and if no automatic incident response is configured, take mitigation steps, such as machine isolation, disabling the user or blocking a remote address on your firewall. If the activity is found to be legitimate, adjust external security system settings so that no further alerts are sent; and if automatic incident responses were triggered, undo them.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Suspicious authentication activity Detected",
+      "rule_details": "Suspicious authentication activity was identified as malicious. This was determined based on data collection and correlation across multiple security products, as well as by our data enrichment and AI-based analysis.",
+      "forensics_recommendations": "Inspect activity signals in order to identify the purpose and origin of the activity. If the activity is found to be malicious and if no automatic incident response is configured, take mitigation steps, such as machine isolation, disabling the user or blocking a remote address on your firewall. If the activity is found to be legitimate, adjust external security system settings so that no further alerts are sent; and if automatic incident responses were triggered, undo them.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Suspicious email activity Detected",
+      "rule_details": "Suspicious email activity was identified as malicious. This was determined based on data collection and correlation across multiple security products, as well as by our data enrichment and AI-based analysis.",
+      "forensics_recommendations": "Inspect activity signals in order to identify the purpose and origin of the activity. If the activity is found to be malicious and if no automatic incident response is configured, take mitigation steps, such as machine isolation, disabling the user or blocking a remote address on your firewall. If the activity is found to be legitimate, adjust external security system settings so that no further alerts are sent; and if automatic incident responses were triggered, undo them.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "Suspicious network activity Detected",
+      "rule_details": "Suspicious network activity was identified as malicious. This was determined based on data collection and correlation across multiple security products, as well as by our data enrichment and AI-based analysis.",
+      "forensics_recommendations": "Inspect activity signals in order to identify the purpose and origin of the activity. If the activity is found to be malicious and if no automatic incident response is configured, take mitigation steps, such as machine isolation, disabling the user or blocking a remote address on your firewall. If the activity is found to be legitimate, adjust external security system settings so that no further alerts are sent; and if automatic incident responses were triggered, undo them. POLICY: Device Control",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Application Specific Device Detected",
+      "rule_details": "Unauthorized access to USB Application Specific device (Class FEh) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Audio Device Detected",
+      "rule_details": "Unauthorized access to USB Audio device (Class 01h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Audio/Video Device Detected",
+      "rule_details": "Unauthorized access to USB Audio/Video device (Class 10h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Base Class Device Detected",
+      "rule_details": "Unauthorized access to USB Base Class device (Class 00h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Billboard Device Detected",
+      "rule_details": "Unauthorized access to USB Billboard device (Class 11h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB CDC",
+      "rule_details": "Unauthorized access to USB CDC-Data device (Class 0Ah) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": "Data Device Detected"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Communications and CDC Control Device Detected",
+      "rule_details": "Unauthorized access to USB Communications and CDC Control device (Class 02h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Content Security Device Detected",
+      "rule_details": "Unauthorized access to USB Content Security device (Class 0Dh) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Diagnostic Device Detected",
+      "rule_details": "Unauthorized access to USB Diagnostic device (Class DCh) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Hub Detected",
+      "rule_details": "Unauthorized access to USB Hub device (Class 09h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Human Interface Control Device Detected",
+      "rule_details": "Unauthorized access to USB Human Interface Device Device device (Class 03h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Mass Storage Device Detected",
+      "rule_details": "Unauthorized access to USB Mass Storage device (Class 08h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Miscellaneous Device Detected",
+      "rule_details": "Unauthorized access to USB Miscellaneous device (Class EFh) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Personal Healthcare Device Detected",
+      "rule_details": "Unauthorized access to USB Personal Healthcare device (Class 0Fh) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Physical Device Detected",
+      "rule_details": "Unauthorized access to USB Physical device (Class 05h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy set exception to allow it",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Printer Detected",
+      "rule_details": "Unauthorized access to USB Printer device (Class 07h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Smart Card Detected",
+      "rule_details": "Unauthorized access to USB Smart Card device (Class 0Bh) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Still Imaging Device Detected",
+      "rule_details": "Unauthorized access to USB Still Imaging device (Class 06h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Type",
+      "rule_details": "Unauthorized access to USB Type-C Bridge device (Class 12h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": "C Bridge Device Detected"
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Unknown Device Detected",
+      "rule_details": "Unauthorized access to USB Unknown device was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Vendor Specific Device Detected",
+      "rule_details": "Unauthorized access to USB Vendor Specific device (Class FFh) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Video Detected",
+      "rule_details": "Unauthorized access to USB Video device (Class 0Eh) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    },
+    {
+      "policy_name": "Ransomware Prevention",
+      "rule_name": "USB Wireless Controller Device Detected",
+      "rule_details": "Unauthorized access to USB Wireless Controller device (Class E0h) was detected.",
+      "forensics_recommendations": "In case the device meets organization policy, set an exception to allow it.",
+      "rule_subtitle": null
+    }
+  ]
+}

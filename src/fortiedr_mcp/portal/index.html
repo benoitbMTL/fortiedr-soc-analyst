@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FortiEDR Virtual Security Analyst</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/portal/static/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar topbar-main">
+        <div class="topbar-brand">
+          <h1>FortiEDR Virtual Security Analyst</h1>
+        </div>
+        <div class="topbar-search">
+              <label class="search-control" for="incident-search">
+                <input
+                  id="incident-search"
+                  class="search-input"
+                  type="search"
+                  placeholder="Incident ID, process, or host"
+                  autocomplete="off"
+                />
+              </label>
+        </div>
+        <div class="topbar-tools">
+          <div class="actions">
+            <button id="settings-button" class="secondary-button" type="button">Settings</button>
+            <button id="clear-selection-button" class="secondary-button" type="button">Clear</button>
+            <button id="analyze-selected-button" class="primary-button" type="button">Analyze Selected</button>
+            <a class="link-button" href="/portal">Refresh</a>
+          </div>
+        </div>
+      </header>
+
+      <div id="bulk-banner" class="banner hidden"></div>
+
+      <main class="page-grid">
+        <section class="panel panel-wide">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Incident Queue</p>
+              <h2>Available Incidents</h2>
+            </div>
+            <div class="chip-row">
+              <div id="selected-count" class="stat-chip">0 selected</div>
+              <div id="incident-count" class="stat-chip">Loading</div>
+              <div id="org-chip" class="stat-chip org-chip">n/a</div>
+            </div>
+          </div>
+          <div class="panel-toolbar">
+            <div class="panel-filters">
+              <label class="filter-control" for="classification-filter">
+                <span>Classification</span>
+                <select id="classification-filter" class="filter-select">
+                  <option value="">Any</option>
+                  <option value="Malicious">Malicious</option>
+                  <option value="Suspicious">Suspicious</option>
+                  <option value="Inconclusive">Inconclusive</option>
+                  <option value="PUP">PUP</option>
+                </select>
+              </label>
+              <label class="filter-control" for="severity-filter">
+                <span>Severity</span>
+                <select id="severity-filter" class="filter-select">
+                  <option value="">Any</option>
+                  <option value="Critical">Critical</option>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </label>
+              <label class="filter-control" for="certificate-filter">
+                <span>Certificate</span>
+                <select id="certificate-filter" class="filter-select">
+                  <option value="">Any</option>
+                  <option value="signed">Signed</option>
+                  <option value="unsigned">Unsigned</option>
+                  <option value="unknown">Unknown</option>
+                </select>
+              </label>
+              <label class="filter-control" for="analysis-filter">
+                <span>Analysis</span>
+                <select id="analysis-filter" class="filter-select">
+                  <option value="">Any</option>
+                  <option value="success">Analyzed</option>
+                  <option value="running">Running</option>
+                  <option value="failed">Failed</option>
+                  <option value="not_analyzed">Not analyzed</option>
+                </select>
+              </label>
+              <button id="clear-filters-button" class="filter-reset-button hidden" type="button">Clear filters</button>
+            </div>
+            <div class="panel-toolbar-meta">
+              <div id="results-summary" class="small-note">Recent incidents</div>
+            </div>
+          </div>
+          <div id="incidents-state" class="panel-state">Loading incidents...</div>
+          <div id="incidents-table" class="table-wrap hidden"></div>
+          <div id="incidents-load-more" class="load-more-row hidden">
+            <button id="load-more-button" class="secondary-button" type="button">Load 50 More</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="settings-dialog" class="settings-dialog">
+      <form id="settings-form" class="settings-form" method="dialog">
+        <div class="panel-heading">
+          <div>
+            <h2>Settings</h2>
+          </div>
+        </div>
+
+        <div id="settings-message" class="banner hidden"></div>
+
+        <section class="settings-section settings-section-grid settings-theme-llm">
+          <div class="settings-section-header settings-section-header-wide">
+            <div>
+              <h3>Analysis Engine</h3>
+              <p class="settings-help">Choose one engine source for portal analyses. Public and private settings are kept separate, and only the selected source is used.</p>
+            </div>
+            <div class="source-chip source-chip-llm">LLM</div>
+          </div>
+          <div class="settings-section-main">
+            <div class="engine-source-block">
+              <div class="settings-side-field settings-side-field-plain">
+                <span>Choose engine source</span>
+              </div>
+              <div class="engine-source-options" role="radiogroup" aria-label="Choose engine source">
+                <label class="engine-source-option">
+                  <input id="settings-engine-source-public" type="radio" name="engine_source" value="public" />
+                  <span>
+                    <strong>Public cloud LLM</strong>
+                    <small>Use a hosted provider such as OpenAI for portal analyses.</small>
+                  </span>
+                </label>
+                <label class="engine-source-option">
+                  <input id="settings-engine-source-private" type="radio" name="engine_source" value="private" />
+                  <span>
+                    <strong>Private LLM server</strong>
+                    <small>Use a self-hosted inference endpoint such as Ollama instead of public providers.</small>
+                  </span>
+                </label>
+              </div>
+              <div id="settings-engine-summary" class="engine-summary">Current engine: n/a</div>
+            </div>
+
+            <div id="settings-public-engine-block" class="engine-config-block hidden">
+              <div class="form-grid">
+                <label>
+                  <span>Provider</span>
+                  <select id="settings-public-provider-selector"></select>
+                </label>
+                <label>
+                  <span>Model</span>
+                  <select id="settings-public-model-selector"></select>
+                </label>
+                <label>
+                  <span>Analysis Profile</span>
+                  <select id="settings-profile-selector"></select>
+                </label>
+              </div>
+            </div>
+
+            <div id="settings-private-engine-block" class="engine-config-block hidden">
+              <div class="form-grid">
+                <label>
+                  <span>Remote LLM Type</span>
+                  <select id="settings-llm-provider-selector">
+                    <option value="ollama">Ollama</option>
+                  </select>
+                </label>
+                <label>
+                  <span>LLM Server URL</span>
+                  <input
+                    id="settings-llm-server-url"
+                    name="llm_server_url"
+                    type="url"
+                    placeholder="http://127.0.0.1:11434/"
+                    autocomplete="off"
+                  />
+                </label>
+                <label>
+                  <span>Remote Model</span>
+                  <select
+                    id="settings-llm-server-model"
+                    name="llm_server_model"
+                  ></select>
+                </label>
+                <label>
+                  <span>Analysis Profile</span>
+                  <select id="settings-private-profile-selector"></select>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="settings-section-side settings-section-side-end">
+            <div id="settings-private-engine-actions" class="settings-side-actions hidden">
+              <button id="settings-test-llm-button" class="secondary-button" type="button">Test LLM</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="settings-section settings-section-grid settings-theme-api">
+          <div class="settings-section-header settings-section-header-wide">
+            <div>
+              <h3>FortiEDR API</h3>
+              <p class="settings-help">These values are stored in the local <code>.env</code> file and used by the backend for FortiEDR API access.</p>
+            </div>
+            <div class="source-chip source-chip-api">API</div>
+          </div>
+          <div class="settings-section-main">
+            <div class="form-grid">
+              <label>
+                <span>Host</span>
+                <input id="settings-host" name="host" type="text" autocomplete="off" />
+              </label>
+              <label>
+                <span>Organisation</span>
+                <input id="settings-org" name="organization" type="text" autocomplete="off" />
+              </label>
+              <label>
+                <span>Username</span>
+                <input id="settings-user" name="user" type="text" autocomplete="off" />
+              </label>
+              <label>
+                <span>Password</span>
+                <input id="settings-pass" name="password" type="password" autocomplete="new-password" />
+              </label>
+            </div>
+          </div>
+          <div class="settings-section-side settings-section-side-end">
+            <div class="settings-side-actions">
+              <button id="settings-test-button" class="primary-button" type="button">Test</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="settings-section settings-section-grid settings-section-final settings-theme-db">
+          <div class="settings-section-header settings-section-header-wide">
+            <div>
+              <h3>Reset Database</h3>
+              <p class="settings-help">This only affects the local SQLite database. FortiEDR source data and backend configuration are not modified.</p>
+            </div>
+            <div class="source-chip source-chip-db">DB</div>
+          </div>
+          <div class="settings-section-main">
+            <div id="settings-reset-unavailable" class="small-note hidden">Database reset is disabled on this backend instance.</div>
+          </div>
+          <div class="settings-section-side settings-section-side-end">
+            <div id="settings-reset-available" class="settings-reset-block hidden">
+              <button id="settings-reset-toggle-button" class="danger-button" type="button">DB Reset</button>
+            </div>
+          </div>
+          <div id="settings-reset-warning-panel" class="settings-reset-warning-panel hidden">
+            <div class="settings-reset-warning">
+              <strong>Warning</strong>
+              <p>This will permanently delete persisted analysis runs, validated outputs, raw LLM outputs, feedback, and cached history stored by the backend.</p>
+              <div id="settings-reset-confirmation" class="settings-reset-confirmation hidden">
+                <p class="small-note">Confirm only if you want to wipe the local analysis database immediately.</p>
+                <div class="settings-inline-actions">
+                  <button id="settings-reset-confirm-button" class="danger-button" type="button">Confirm</button>
+                  <button id="settings-reset-cancel-button" class="secondary-button" type="button">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="settings-actions">
+          <div class="settings-actions-spacer"></div>
+          <button id="settings-cancel-button" class="secondary-button" type="button">Cancel</button>
+          <button id="settings-save-button" class="primary-button" type="submit">Save</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="/portal/static/incidents.js"></script>
+  </body>
+</html>
