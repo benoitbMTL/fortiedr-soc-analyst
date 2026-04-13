@@ -93,7 +93,7 @@ Main exposed tools:
 
 ![](docs/images/mcp-tools.png)
 
-## 🌐 Portail
+## 🌐 Web Portal
 
 Start the backend server that also serves the portal:
 
