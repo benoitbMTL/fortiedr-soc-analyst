@@ -1,13 +1,18 @@
-# FortiEDR SOC Analyst
+# 🛡 FortiEDR SOC Analyst
 
-`FortiEDR SOC Analyst` helps you use AI to analyze FortiEDR incidents.
+FortiEDR SOC Analyst helps security teams quickly analyze FortiEDR incidents using LLMs, either from their preferred LLM client or through a dedicated web interface.
 
-You can use it in two ways:
+You can use the project in two ways:
 
-- through an AI client connected to the read-only MCP server, so the model can retrieve FortiEDR incident and host data
-- through the web portal and backend, so you can review incidents and run structured AI-assisted analysis in the browser
+* **LLM Client Integration**
+  Connect your LLM client to the read-only MCP server to enable the model to securely retrieve FortiEDR incidents and host data for analysis.
 
-## Installation 🚀
+* **Web Portal**
+  Use the web interface to browse incidents and run structured, LLM-assisted investigations directly in your browser.
+
+---
+
+## 🛠️ Installation
 
 ```bash
 git clone https://github.com/benoitbMTL/fortiedr-soc-analyst.git
@@ -43,7 +48,7 @@ FORTIEDR_LLM_SERVER_URL=http://127.0.0.1:11434
 OLLAMA_MODEL=qwen2.5:7b
 ```
 
-## MCP Server 🔌
+## <img src="docs/images/mcp-server-logo.svg" alt="MCP Server" height="24"> MCP Server
 
 Start the MCP server:
 
@@ -88,7 +93,7 @@ Main exposed tools:
 
 ![](docs/images/mcp-tools.png)
 
-## Portail 🖥️
+## 🌐 Portail
 
 Start the backend server that also serves the portal:
 
